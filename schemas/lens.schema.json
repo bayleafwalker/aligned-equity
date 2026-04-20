@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aligned-equity.local/schemas/lens.schema.json",
+  "title": "Aligned Equity Lens",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["lens_key"],
+  "properties": {
+    "lens_key": {
+      "type": "string",
+      "enum": ["investment", "workplace", "product"]
+    }
+  }
+}

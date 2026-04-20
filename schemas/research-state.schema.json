@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aligned-equity.local/schemas/research-state.schema.json",
+  "title": "Aligned Equity Research State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["research_state"],
+  "properties": {
+    "research_state": {
+      "type": "string",
+      "enum": [
+        "long_term_candidate",
+        "dislocation_candidate",
+        "watch",
+        "thesis_strengthened",
+        "thesis_weakened",
+        "deteriorating",
+        "avoid"
+      ]
+    }
+  }
+}

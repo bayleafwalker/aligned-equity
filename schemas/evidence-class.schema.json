@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aligned-equity.local/schemas/evidence-class.schema.json",
+  "title": "Aligned Equity Evidence Class",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence_class"],
+  "properties": {
+    "evidence_class": {
+      "type": "string",
+      "enum": [
+        "governance_statement",
+        "code_deviation",
+        "remuneration_report",
+        "remuneration_policy",
+        "esef_financials",
+        "pdmr_notice",
+        "earnings_call",
+        "leadership_change",
+        "regulatory_event",
+        "people_signal_aux"
+      ]
+    }
+  }
+}

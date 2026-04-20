@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "import_paths": ["."],
+  "extension_modules": ["aligned_equity.integrations.homelab_analytics"],
+  "function_modules": [],
+  "minimum_platform_version": "0.1.0",
+  "display_name": "Aligned Equity",
+  "homepage": "https://github.com/bayleafwalker/aligned-equity"
+}

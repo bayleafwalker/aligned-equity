@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aligned-equity"
+version = "0.1.0"
+description = "Finland-first evidence and lens research platform for public-company alignment analysis."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "jsonschema>=4.23",
+    "PyYAML>=6.0",
+]
+
+[project.urls]
+Repository = "https://github.com/bayleafwalker/aligned-equity"
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.11",
+    "pytest>=8.0",
+    "ruff>=0.11",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.11",
+    "pytest>=8.0",
+    "ruff>=0.11",
+]
+
+[tool.setuptools.package-dir]
+"" = "packages"
+
+[tool.setuptools.packages.find]
+where = ["packages"]
+include = ["aligned_equity*"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["apps", "packages", "tests"]
+ignore_missing_imports = true
+warn_unused_configs = true
+explicit_package_bases = true
+namespace_packages = true
+exclude = '(^\.venv/|^docs/|^schemas/)'
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [".git", ".local", ".tooling", ".venv", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
