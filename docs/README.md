@@ -19,6 +19,7 @@
 - `specifications/finland-source-inventory.md` - Finland-first source spine for Phase 0
 - `specifications/phase-1-source-fixture-boundaries.md` - accepted Phase 1 source families and fixture limits
 - `specifications/source-ledger-record-spec.md` - source freshness, coverage, retrieval, and comparability contract
+- `specifications/entity-identifier-normalization.md` - company, security, and source alias normalization contract
 - `specifications/evidence-record-spec.md` - schema-backed evidence fields, confidence, comparability, and override rules
 - `specifications/lens-scorecard-spec.md` - scorecard dimensions, lens outputs, and research-state transitions
 - `specifications/decision-output-contract.md` - decision memo fields, value-of-information notes, and causal guardrails

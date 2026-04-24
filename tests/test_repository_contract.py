@@ -54,6 +54,9 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     source_fixture_boundaries = (
         REPO_ROOT / "docs/specifications/phase-1-source-fixture-boundaries.md"
     ).read_text(encoding="utf-8")
+    entity_identifiers = (
+        REPO_ROOT / "docs/specifications/entity-identifier-normalization.md"
+    ).read_text(encoding="utf-8")
     hla_spike = (
         REPO_ROOT / "docs/specifications/hla-publication-contract-spike.md"
     ).read_text(encoding="utf-8")
@@ -102,6 +105,14 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
         assert source_family in source_fixture_boundaries
     assert "People-platform evidence without bias flags" in source_fixture_boundaries
     assert "without network access" in source_fixture_boundaries
+    for field in (
+        "company_id",
+        "company_identifiers",
+        "security_identifiers",
+        "source_aliases",
+    ):
+        assert field in entity_identifiers
+    assert "Using ticker alone" in entity_identifiers
     assert "Aligned Equity does not import HLA" in hla_spike
     assert "value_of_information_assessment" in decision_output
     assert "causal_design" in decision_output

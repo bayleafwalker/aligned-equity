@@ -39,6 +39,19 @@ def test_evidence_record_schema_accepts_required_contract() -> None:
     jsonschema.validate(_evidence_record_payload(), schema)
 
 
+def test_entity_identifier_record_schema_accepts_required_contract() -> None:
+    schema = _schema("entity-identifier-record.schema.json")
+    jsonschema.validate(_entity_identifier_payload(), schema)
+
+
+def test_entity_identifier_record_schema_rejects_unknown_source_family() -> None:
+    schema = _schema("entity-identifier-record.schema.json")
+    payload = _entity_identifier_payload()
+    payload["source_aliases"][0]["source_family"] = "unknown_feed"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
 def test_evidence_record_schema_rejects_unknown_source_family() -> None:
     schema = _schema("evidence-record.schema.json")
     payload = _evidence_record_payload()
@@ -196,6 +209,35 @@ def _evidence_record_payload() -> dict[str, Any]:
         "comparability_notes": "Cross-firm comparison is not used.",
         "bias_flags": [],
         "legal_or_enforcement_override": False,
+    }
+
+
+def _entity_identifier_payload() -> dict[str, Any]:
+    return {
+        "company_id": "example-company",
+        "display_name": "Example Oyj",
+        "domicile_country": "FI",
+        "identifier_confidence": "high",
+        "company_identifiers": {"business_id": "1234567-8"},
+        "security_identifiers": [
+            {
+                "security_id": "example-share",
+                "isin": "FI0000000000",
+                "ticker": "EXMPL",
+                "market": "Nasdaq Helsinki",
+                "mic": "XHEL",
+                "currency": "EUR",
+                "listing_status": "listed",
+            }
+        ],
+        "source_aliases": [
+            {
+                "source_family": "company_ir_annual_reporting",
+                "source_value": "Example Oyj",
+                "source_id": "source-1",
+            }
+        ],
+        "normalization_notes": "Fixture identity mapping for schema validation.",
     }
 
 

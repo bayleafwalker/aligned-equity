@@ -53,6 +53,7 @@ REQUIRED_DOCS = (
     "docs/specifications/finland-source-inventory.md",
     "docs/specifications/phase-1-source-fixture-boundaries.md",
     "docs/specifications/source-ledger-record-spec.md",
+    "docs/specifications/entity-identifier-normalization.md",
     "docs/specifications/evidence-record-spec.md",
     "docs/specifications/lens-scorecard-spec.md",
     "docs/specifications/decision-output-contract.md",
@@ -147,6 +148,35 @@ def _validate_registry_manifest(repo_root: Path) -> list[str]:
 def _validate_schemas(repo_root: Path) -> list[str]:
     examples = (
         ("evidence-class.schema.json", {"evidence_class": EVIDENCE_CLASSES[0]}),
+        (
+            "entity-identifier-record.schema.json",
+            {
+                "company_id": "example-company",
+                "display_name": "Example Oyj",
+                "domicile_country": "FI",
+                "identifier_confidence": CONFIDENCE_LEVELS[0],
+                "company_identifiers": {"business_id": "1234567-8"},
+                "security_identifiers": [
+                    {
+                        "security_id": "example-share",
+                        "isin": "FI0000000000",
+                        "ticker": "EXMPL",
+                        "market": "Nasdaq Helsinki",
+                        "mic": "XHEL",
+                        "currency": "EUR",
+                        "listing_status": "listed",
+                    }
+                ],
+                "source_aliases": [
+                    {
+                        "source_family": SOURCE_FAMILIES[0],
+                        "source_value": "Example Oyj",
+                        "source_id": "source-1",
+                    }
+                ],
+                "normalization_notes": "Manual smoke-test identity mapping.",
+            },
+        ),
         (
             "source-ledger-record.schema.json",
             {
