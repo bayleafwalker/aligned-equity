@@ -8,7 +8,14 @@ from typing import Any
 
 import jsonschema
 
-from aligned_equity.contracts import EVIDENCE_CLASSES, LENS_KEYS, RESEARCH_STATES, SCHEMA_DIR
+from aligned_equity.contracts import (
+    DECISION_CONTEXTS,
+    EVIDENCE_CLASSES,
+    LENS_KEYS,
+    RESEARCH_STATES,
+    SCHEMA_DIR,
+    VALUE_OF_INFORMATION_ASSESSMENTS,
+)
 
 REQUIRED_ROOT_FILES = (
     "README.md",
@@ -29,9 +36,19 @@ REQUIRED_DOCS = (
     "docs/soft-leadership-factors.md",
     "docs/research-notes.md",
     "docs/product/vision.md",
+    "docs/product/six-month-success-criteria.md",
     "docs/architecture/evidence-model.md",
     "docs/architecture/lens-model.md",
     "docs/architecture/homelab-analytics-platform-contract.md",
+    "docs/specifications/finland-source-inventory.md",
+    "docs/specifications/evidence-record-spec.md",
+    "docs/specifications/lens-scorecard-spec.md",
+    "docs/specifications/decision-output-contract.md",
+    "docs/specifications/hla-publication-contract-spike.md",
+    "docs/agents/planning.md",
+    "docs/agents/implementation.md",
+    "docs/agents/review.md",
+    "docs/agents/release-ops.md",
     "docs/plans/phase-0-roadmap.md",
     "docs/runbooks/project-working-practices.md",
     "docs/runbooks/sprint-and-knowledge-operations.md",
@@ -120,6 +137,30 @@ def _validate_schemas(repo_root: Path) -> list[str]:
         ("evidence-class.schema.json", {"evidence_class": EVIDENCE_CLASSES[0]}),
         ("lens.schema.json", {"lens_key": LENS_KEYS[0]}),
         ("research-state.schema.json", {"research_state": RESEARCH_STATES[0]}),
+        (
+            "decision-output.schema.json",
+            {
+                "company_id": "example-company",
+                "analysis_date": "2026-04-24",
+                "decision_context": DECISION_CONTEXTS[0],
+                "current_research_state": RESEARCH_STATES[2],
+                "material_evidence_ids": ["evidence-1"],
+                "scorecard_dimension_assessments": [
+                    {
+                        "dimension": "governance and accountability",
+                        "assessment": "neutral",
+                        "rationale": "Evidence is relevant to the decision context.",
+                        "evidence_ids": ["evidence-1"],
+                    }
+                ],
+                "confidence_summary": "Source confidence is medium.",
+                "comparability_summary": "Same-firm comparison is partial.",
+                "likely_action_implication": "Preserve watch status.",
+                "value_of_information_assessment": VALUE_OF_INFORMATION_ASSESSMENTS[0],
+                "value_of_information_note": "More primary evidence could change follow-up scope.",
+                "causal_claim": {"claim_type": "decision_relevance"},
+            },
+        ),
     )
     errors: list[str] = []
     for schema_name, payload in examples:

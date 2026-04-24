@@ -2,6 +2,8 @@
 
 Aligned Equity uses one dimensional scorecard with thin decision lenses on top. The scorecard owns the evidence interpretation; lenses own context-specific weighting and output shape.
 
+The detailed Phase 0 scorecard and transition contract lives in `docs/specifications/lens-scorecard-spec.md`.
+
 ## Dimensions
 
 - governance and accountability

@@ -34,9 +34,25 @@ RESEARCH_STATES = (
     "avoid",
 )
 
+DECISION_CONTEXTS = LENS_KEYS
+
+VALUE_OF_INFORMATION_ASSESSMENTS = (
+    "collect_more_evidence",
+    "monitor_freshness",
+    "more_research_unlikely_to_change_action",
+)
+
+CAUSAL_CLAIM_TYPES = (
+    "association",
+    "warning_signal",
+    "decision_relevance",
+    "causal_effect",
+)
+
 FUTURE_HLA_PUBLICATION_KEYS = (
     "aligned_equity_company_evidence",
     "aligned_equity_scorecard",
     "aligned_equity_research_state",
     "aligned_equity_source_freshness",
+    "aligned_equity_decision_memo",
 )

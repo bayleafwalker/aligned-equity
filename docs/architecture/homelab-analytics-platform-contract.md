@@ -2,6 +2,8 @@
 
 Aligned Equity is initialized as a standalone repository with an optional homelab-analytics integration boundary.
 
+The Phase 0 publication spike lives in `docs/specifications/hla-publication-contract-spike.md`.
+
 ## Current contract
 
 The root `homelab-analytics.registry.json` declares:
@@ -27,6 +29,7 @@ This lets homelab-analytics validate the repository as an external source withou
 - `aligned_equity_scorecard`
 - `aligned_equity_research_state`
 - `aligned_equity_source_freshness`
+- `aligned_equity_decision_memo`
 
 These keys are reserved for future HLA-backed publications. They must not be used for unrelated outputs.
 

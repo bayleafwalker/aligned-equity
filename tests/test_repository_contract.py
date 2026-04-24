@@ -41,5 +41,42 @@ def test_envrc_uses_repo_local_state() -> None:
     assert 'export KCTL_PROJECT="aligned-equity"' in text
 
 
+def test_phase_0_specs_capture_required_contract_fields() -> None:
+    evidence = (REPO_ROOT / "docs/specifications/evidence-record-spec.md").read_text(
+        encoding="utf-8"
+    )
+    lens = (REPO_ROOT / "docs/specifications/lens-scorecard-spec.md").read_text(
+        encoding="utf-8"
+    )
+    source_inventory = (
+        REPO_ROOT / "docs/specifications/finland-source-inventory.md"
+    ).read_text(encoding="utf-8")
+    hla_spike = (
+        REPO_ROOT / "docs/specifications/hla-publication-contract-spike.md"
+    ).read_text(encoding="utf-8")
+    decision_output = (
+        REPO_ROOT / "docs/specifications/decision-output-contract.md"
+    ).read_text(encoding="utf-8")
+
+    for field in (
+        "source_confidence",
+        "extraction_confidence",
+        "interpretation_confidence",
+        "same_firm_comparable",
+        "cross_firm_comparable",
+        "bias_flags",
+    ):
+        assert field in evidence
+
+    assert "Allowed transitions" in lens
+    assert "event override" in lens
+    assert "people-platform" in source_inventory
+    assert "not a primary scored axis" in source_inventory
+    assert "Aligned Equity does not import HLA" in hla_spike
+    assert "value_of_information_assessment" in decision_output
+    assert "causal_design" in decision_output
+    assert "numeric predictive" in decision_output
+
+
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()

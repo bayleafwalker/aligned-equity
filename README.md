@@ -62,6 +62,7 @@ make hla-contract-check
 - `docs/architecture/lens-model.md` - dimensional scorecard and lens model
 - `docs/architecture/homelab-analytics-platform-contract.md` - optional HLA boundary
 - `docs/plans/phase-0-roadmap.md` - initialization-to-first-sprint roadmap
+- `docs/specifications/decision-output-contract.md` - decision memo, value-of-information, and causal-claim guardrails
 
 ## Homelab-Analytics Boundary
 

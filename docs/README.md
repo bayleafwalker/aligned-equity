@@ -3,6 +3,7 @@
 ## Start Here
 
 - `product/vision.md` - product identity, users, and Phase 0 success criteria
+- `product/six-month-success-criteria.md` - decision-impact review criteria for six months of use
 - `operational-shape.md` - seed operating model, roadmap, and Finland-first direction
 - `plans/phase-0-roadmap.md` - concrete initialization-to-first-sprint plan
 
@@ -11,6 +12,21 @@
 - `architecture/evidence-model.md` - evidence classes and source treatment
 - `architecture/lens-model.md` - dimensional scorecard, lenses, and research states
 - `architecture/homelab-analytics-platform-contract.md` - optional platform integration boundary
+
+## Specifications
+
+- `specifications/finland-source-inventory.md` - Finland-first source spine for Phase 0
+- `specifications/evidence-record-spec.md` - evidence fields, confidence, comparability, and override rules
+- `specifications/lens-scorecard-spec.md` - scorecard dimensions, lens outputs, and research-state transitions
+- `specifications/decision-output-contract.md` - decision memo fields, value-of-information notes, and causal guardrails
+- `specifications/hla-publication-contract-spike.md` - reserved HLA publications and future contract checks
+
+## Agent Workflow
+
+- `agents/planning.md` - planning-mode checks
+- `agents/implementation.md` - implementation-mode checks
+- `agents/review.md` - review-mode checks
+- `agents/release-ops.md` - release and verification checks
 
 ## Research
 

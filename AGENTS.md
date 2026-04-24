@@ -17,9 +17,13 @@
   - `SPRINTCTL_DB=${PWD}/.sprintctl/sprintctl.db`
   - `KCTL_DB=${PWD}/.kctl/kctl.db`
   - `KCTL_PROJECT=aligned-equity`
+- Mode guides live under `docs/agents/`.
+- Workflow skills live under `.agents/skills/`; `.claude/skills/` may expose symlinks for Claude sessions.
+- Use `tools/workflow.sh` through the Make targets for claim recovery, snapshot refresh, and knowledge publishing.
 - Run targeted tests while editing and `make verify-fast` before pushing or opening a PR.
 - Behavior changes must add or update tests in the same change.
 - Documentation or architecture changes should update `docs/README.md` when discoverability changes.
+- Sprint names use three-word hyphenated codenames. The first sprint is `finland-evidence-spine`.
 
 ## Architecture rules
 

@@ -2,6 +2,9 @@
 
 Aligned Equity uses a Finland-first evidence model. Evidence records should preserve source identity, date, company identity, comparability notes, and confidence before any scorecard interpretation is added.
 
+The detailed Phase 0 record contract lives in `docs/specifications/evidence-record-spec.md`.
+The Finland-first source spine lives in `docs/specifications/finland-source-inventory.md`.
+
 ## Evidence classes
 
 - `governance_statement`
