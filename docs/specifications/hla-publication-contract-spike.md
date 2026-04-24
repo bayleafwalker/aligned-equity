@@ -19,7 +19,7 @@ homelab-analytics without making HLA a runtime dependency of the core package.
 | `aligned_equity_company_evidence` | one row per normalized evidence record | Publish source lineage and evidence metadata. | company identity, evidence class, source family, dates, confidence, comparability, bias flags. |
 | `aligned_equity_scorecard` | one row per company analysis date and scorecard run | Publish dimension assessments. | dimension, assessment value, rationale, evidence links, confidence summary, comparability caveats. |
 | `aligned_equity_research_state` | one row per state transition | Publish research-state history. | prior state, next state, triggering evidence, transition rationale, override flag, actor or process source. |
-| `aligned_equity_source_freshness` | one row per company and source family | Publish coverage and freshness. | latest source date, collection date, source authority, missing-source reason, freshness status. |
+| `aligned_equity_source_freshness` | one row per source-ledger record | Publish source freshness, retrieval, extraction-readiness, and comparability metadata. | source ID, source family, locator, publisher, retrieval method, collection date, observed date, freshness status, confidence, extraction readiness, comparability, bias flags. |
 | `aligned_equity_decision_memo` | one row per company, analysis date, and decision context | Publish decision-support outputs. | decision context, current research state, material evidence, confidence summary, comparability caveats, action implication, value-of-information assessment, causal-claim metadata. |
 
 ## Decision Memo Field Semantics
@@ -44,6 +44,33 @@ Required field semantics:
 - `value_of_information_assessment`: whether more evidence is expected to change action.
 - `value_of_information_note`: rationale for the value-of-information assessment.
 - `causal_claim`: claim type and causal-design metadata when causal effects are asserted.
+
+## Source Freshness Field Semantics
+
+The reserved `aligned_equity_source_freshness` publication is the HLA-compatible
+surface for Phase 1 source-ledger metadata. Its field metadata must cover every
+required field from `schemas/source-ledger-record.schema.json`.
+
+Required field semantics:
+
+- `source_id`: stable source-ledger record identifier.
+- `source_family`: accepted Finland-first source family.
+- `source_name`: human-readable source artifact or stream name.
+- `source_locator`: reproducible URL, registry locator, path, or fixture locator.
+- `publisher`: organization or platform that published the source.
+- `retrieval_method`: manual, download, registry API, vendor feed, or fixture path.
+- `collected_at`: timestamp when Aligned Equity collected or accepted the source.
+- `observed_at`: date or timestamp represented by the source itself.
+- `freshness_as_of`: date or timestamp used for freshness assessment.
+- `expected_update_frequency`: expected update cadence.
+- `freshness_status`: current, stale, unknown, or not-applicable source status.
+- `language`: source language and translation status.
+- `source_confidence`: authority and provenance confidence.
+- `extraction_readiness`: ready, manual-review-required, or not-ready extraction status.
+- `same_firm_comparable`: same-firm longitudinal comparability.
+- `cross_firm_comparable`: cross-firm comparability.
+- `comparability_notes`: caveats before derived evidence is compared or scored.
+- `bias_flags`: source-family or collection-channel bias flags.
 
 ## Future HLA Shape
 

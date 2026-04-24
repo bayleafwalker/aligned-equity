@@ -51,10 +51,20 @@ def test_decision_memo_publication_metadata_covers_schema_required_fields() -> N
     assert set(schema["required"]) == set(metadata["fields"])
 
 
-def test_decision_memo_publication_metadata_has_semantic_descriptions() -> None:
-    fields = HLA_PUBLICATION_METADATA["aligned_equity_decision_memo"]["fields"]
+def test_source_freshness_publication_metadata_covers_source_ledger_required_fields() -> None:
+    schema = json.loads(
+        (REPO_ROOT / "schemas/source-ledger-record.schema.json").read_text(encoding="utf-8")
+    )
+    metadata = HLA_PUBLICATION_METADATA["aligned_equity_source_freshness"]
 
-    for field_name, field_metadata in fields.items():
-        assert field_name
-        assert field_metadata["semantic_type"]
-        assert field_metadata["description"]
+    assert metadata["grain"] == "one row per source-ledger record"
+    assert metadata["purpose"]
+    assert set(schema["required"]) == set(metadata["fields"])
+
+
+def test_decision_memo_publication_metadata_has_semantic_descriptions() -> None:
+    for metadata in HLA_PUBLICATION_METADATA.values():
+        for field_name, field_metadata in metadata["fields"].items():
+            assert field_name
+            assert field_metadata["semantic_type"]
+            assert field_metadata["description"]

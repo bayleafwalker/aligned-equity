@@ -2,7 +2,7 @@ SPRINT: helsinki-ingestion-ledger  [active]
 Goal:   Establish the Phase 1 ingestion and normalization foundation for Finland-first evidence while preserving core package independence and avoiding connector-heavy dependencies until each source is accepted.
 Dates:  2026-04-24 to 2026-05-08
 ID:     2
-Items:  7 total — 6 done, 0 active, 1 pending, 0 blocked
+Items:  7 total — 7 done, 0 active, 0 pending, 0 blocked
 
 --- Track: workflow ---
   health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
@@ -29,7 +29,7 @@ Items:  7 total — 6 done, 0 active, 1 pending, 0 blocked
   [done    ] #16  Define ingestion readiness gates for decision-output use  (assignee: -)
 
 --- Track: platform ---
-  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
-  [pending ] #17  Keep HLA publication surfaces compatible with ingestion metadata  (assignee: -)
+  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #17  Keep HLA publication surfaces compatible with ingestion metadata  (assignee: -)
 
-Rendered: 2026-04-24T15:55:10Z
+Rendered: 2026-04-24T15:57:39Z
