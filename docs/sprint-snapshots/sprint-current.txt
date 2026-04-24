@@ -2,7 +2,7 @@ SPRINT: finland-evidence-spine  [active]
 Goal:   Define the Finland-first source, evidence, lens, HLA publication, and decision-impact spine for Phase 0.
 Dates:  2026-04-20 to 2026-05-01
 ID:     1
-Items:  10 total — 8 done, 0 active, 2 pending, 0 blocked
+Items:  10 total — 10 done, 0 active, 0 pending, 0 blocked
 
 --- Track: workflow ---
   health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
@@ -10,9 +10,9 @@ Items:  10 total — 8 done, 0 active, 2 pending, 0 blocked
   [done    ] #7  Adopt HLA-style working-process dispatch runbooks  (assignee: -)
 
 --- Track: evidence ---
-  health: 2 items — 1 done (50%), 0 active, 1 pending, 0 blocked (0%)
+  health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
   [done    ] #3  Specify evidence records with confidence and comparability fields  (assignee: -)
-  [pending ] #9  Dispatch evidence-to-decision vertical slice  (assignee: -)
+  [done    ] #9  Dispatch evidence-to-decision vertical slice  (assignee: -)
 
 --- Track: sources ---
   health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
@@ -23,13 +23,13 @@ Items:  10 total — 8 done, 0 active, 2 pending, 0 blocked
   [done    ] #4  Specify dimensional scorecard and research-state transitions  (assignee: -)
 
 --- Track: platform ---
-  health: 2 items — 1 done (50%), 0 active, 1 pending, 0 blocked (0%)
+  health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
   [done    ] #5  Spike HLA publication contract  (assignee: -)
-  [pending ] #10  Prepare decision memo HLA publication metadata  (assignee: -)
+  [done    ] #10  Prepare decision memo HLA publication metadata  (assignee: -)
 
 --- Track: product ---
   health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
   [done    ] #6  Define six-month decision-impact success criteria  (assignee: -)
   [done    ] #8  Specify decision-output contract and causal guardrails  (assignee: -)
 
-Rendered: 2026-04-24T14:45:50Z
+Rendered: 2026-04-24T14:52:56Z

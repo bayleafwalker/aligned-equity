@@ -3,6 +3,8 @@
 Evidence records preserve source lineage before any feature extraction, scorecard
 interpretation, lens weighting, or publication.
 
+The schema-backed contract lives in `schemas/evidence-record.schema.json`.
+
 ## Required Record Fields
 
 | Field | Purpose |
@@ -60,3 +62,5 @@ outputs.
 - Feature extraction does not own lens-specific weighting.
 - Scorecards do not erase source confidence or comparability caveats.
 - Lens outputs do not invent new evidence classes.
+- Decision outputs consume material evidence IDs and carry confidence and comparability
+  summaries forward rather than recomputing source lineage.

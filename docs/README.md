@@ -16,7 +16,7 @@
 ## Specifications
 
 - `specifications/finland-source-inventory.md` - Finland-first source spine for Phase 0
-- `specifications/evidence-record-spec.md` - evidence fields, confidence, comparability, and override rules
+- `specifications/evidence-record-spec.md` - schema-backed evidence fields, confidence, comparability, and override rules
 - `specifications/lens-scorecard-spec.md` - scorecard dimensions, lens outputs, and research-state transitions
 - `specifications/decision-output-contract.md` - decision memo fields, value-of-information notes, and causal guardrails
 - `specifications/hla-publication-contract-spike.md` - reserved HLA publications and future contract checks

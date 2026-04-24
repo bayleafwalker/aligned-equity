@@ -30,6 +30,19 @@ def test_evidence_class_schema_rejects_unknown_value() -> None:
         jsonschema.validate({"evidence_class": "proxy_statement"}, schema)
 
 
+def test_evidence_record_schema_accepts_required_contract() -> None:
+    schema = _schema("evidence-record.schema.json")
+    jsonschema.validate(_evidence_record_payload(), schema)
+
+
+def test_evidence_record_schema_rejects_unknown_source_family() -> None:
+    schema = _schema("evidence-record.schema.json")
+    payload = _evidence_record_payload()
+    payload["source_family"] = "us_proxy_statement_feed"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
 @pytest.mark.parametrize("lens_key", LENS_KEYS)
 def test_lens_schema_accepts_allowed_values(lens_key: str) -> None:
     schema = _schema("lens.schema.json")
@@ -105,6 +118,34 @@ def test_decision_output_schema_rejects_missing_evidence_links() -> None:
 
 def _schema(name: str) -> dict[str, object]:
     return json.loads((REPO_ROOT / "schemas" / name).read_text(encoding="utf-8"))
+
+
+def _evidence_record_payload() -> dict[str, Any]:
+    return {
+        "evidence_id": "evidence-1",
+        "company_id": "example-company",
+        "source_id": "source-1",
+        "source_family": "company_ir_annual_reporting",
+        "evidence_class": "governance_statement",
+        "document_type": "annual report",
+        "observed_at": "2026-04-24",
+        "collected_at": "2026-04-24T12:00:00Z",
+        "source_locator": "https://example.test/report",
+        "language": "en",
+        "extraction_method": "manual",
+        "source_confidence": "high",
+        "extraction_confidence": "high",
+        "interpretation_confidence": "medium",
+        "confidence_notes": "Manual fixture with primary source lineage.",
+        "same_firm_comparable": "partial",
+        "cross_firm_comparable": "no",
+        "period_alignment": "point-in-time",
+        "accounting_scope": "not-applicable",
+        "restatement_status": "not-applicable",
+        "comparability_notes": "Cross-firm comparison is not used.",
+        "bias_flags": [],
+        "legal_or_enforcement_override": False,
+    }
 
 
 def _decision_output_payload() -> dict[str, Any]:

@@ -9,11 +9,17 @@ from typing import Any
 import jsonschema
 
 from aligned_equity.contracts import (
+    ACCOUNTING_SCOPE_VALUES,
+    COMPARABILITY_LEVELS,
+    CONFIDENCE_LEVELS,
     DECISION_CONTEXTS,
     EVIDENCE_CLASSES,
     LENS_KEYS,
+    PERIOD_ALIGNMENT_VALUES,
     RESEARCH_STATES,
+    RESTATEMENT_STATUS_VALUES,
     SCHEMA_DIR,
+    SOURCE_FAMILIES,
     VALUE_OF_INFORMATION_ASSESSMENTS,
 )
 
@@ -135,6 +141,34 @@ def _validate_registry_manifest(repo_root: Path) -> list[str]:
 def _validate_schemas(repo_root: Path) -> list[str]:
     examples = (
         ("evidence-class.schema.json", {"evidence_class": EVIDENCE_CLASSES[0]}),
+        (
+            "evidence-record.schema.json",
+            {
+                "evidence_id": "evidence-1",
+                "company_id": "example-company",
+                "source_id": "source-1",
+                "source_family": SOURCE_FAMILIES[0],
+                "evidence_class": EVIDENCE_CLASSES[0],
+                "document_type": "annual report",
+                "observed_at": "2026-04-24",
+                "collected_at": "2026-04-24T12:00:00Z",
+                "source_locator": "https://example.test/report",
+                "language": "en",
+                "extraction_method": "manual",
+                "source_confidence": CONFIDENCE_LEVELS[0],
+                "extraction_confidence": CONFIDENCE_LEVELS[0],
+                "interpretation_confidence": CONFIDENCE_LEVELS[1],
+                "confidence_notes": "Manual smoke-test payload.",
+                "same_firm_comparable": COMPARABILITY_LEVELS[1],
+                "cross_firm_comparable": COMPARABILITY_LEVELS[2],
+                "period_alignment": PERIOD_ALIGNMENT_VALUES[2],
+                "accounting_scope": ACCOUNTING_SCOPE_VALUES[4],
+                "restatement_status": RESTATEMENT_STATUS_VALUES[4],
+                "comparability_notes": "Cross-firm comparison is not used.",
+                "bias_flags": [],
+                "legal_or_enforcement_override": False,
+            },
+        ),
         ("lens.schema.json", {"lens_key": LENS_KEYS[0]}),
         ("research-state.schema.json", {"research_state": RESEARCH_STATES[0]}),
         (

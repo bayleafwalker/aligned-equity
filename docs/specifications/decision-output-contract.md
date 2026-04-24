@@ -6,6 +6,11 @@ declared.
 
 The schema-backed contract lives in `schemas/decision-output.schema.json`.
 
+The first runtime vertical slice validates normalized evidence records, confirms they
+belong to one company, and builds a decision memo with material evidence IDs plus
+confidence and comparability summaries. This keeps decision output downstream of
+evidence lineage without introducing ingestion or numeric scoring.
+
 ## Required Fields
 
 | Field | Purpose |

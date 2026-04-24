@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from aligned_equity.contracts import FUTURE_HLA_PUBLICATION_KEYS
+from aligned_equity.hla_publications import HLA_PUBLICATION_METADATA
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -37,3 +38,23 @@ def test_future_hla_publication_keys_are_reserved_in_docs() -> None:
     )
     for publication_key in FUTURE_HLA_PUBLICATION_KEYS:
         assert publication_key in text
+
+
+def test_decision_memo_publication_metadata_covers_schema_required_fields() -> None:
+    schema = json.loads(
+        (REPO_ROOT / "schemas/decision-output.schema.json").read_text(encoding="utf-8")
+    )
+    metadata = HLA_PUBLICATION_METADATA["aligned_equity_decision_memo"]
+
+    assert metadata["grain"] == "one row per company, analysis date, and decision context"
+    assert metadata["purpose"]
+    assert set(schema["required"]) == set(metadata["fields"])
+
+
+def test_decision_memo_publication_metadata_has_semantic_descriptions() -> None:
+    fields = HLA_PUBLICATION_METADATA["aligned_equity_decision_memo"]["fields"]
+
+    for field_name, field_metadata in fields.items():
+        assert field_name
+        assert field_metadata["semantic_type"]
+        assert field_metadata["description"]

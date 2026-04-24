@@ -18,6 +18,52 @@ EVIDENCE_CLASSES = (
     "people_signal_aux",
 )
 
+SOURCE_FAMILIES = (
+    "company_ir_annual_reporting",
+    "nasdaq_helsinki_announcements",
+    "finnish_securities_market_association",
+    "fin_fsa_supervision",
+    "prh_trade_register",
+    "presentations_transcripts_capital_markets_days",
+    "business_media_analyst_coverage",
+    "people_platforms",
+)
+
+CONFIDENCE_LEVELS = (
+    "high",
+    "medium",
+    "low",
+)
+
+COMPARABILITY_LEVELS = (
+    "yes",
+    "partial",
+    "no",
+)
+
+PERIOD_ALIGNMENT_VALUES = (
+    "aligned",
+    "shifted",
+    "point-in-time",
+    "unknown",
+)
+
+ACCOUNTING_SCOPE_VALUES = (
+    "parent",
+    "group",
+    "segment",
+    "unknown",
+    "not-applicable",
+)
+
+RESTATEMENT_STATUS_VALUES = (
+    "original",
+    "restated",
+    "corrected",
+    "unknown",
+    "not-applicable",
+)
+
 LENS_KEYS = (
     "investment",
     "workplace",
@@ -40,6 +86,15 @@ VALUE_OF_INFORMATION_ASSESSMENTS = (
     "collect_more_evidence",
     "monitor_freshness",
     "more_research_unlikely_to_change_action",
+)
+
+SCORECARD_ASSESSMENTS = (
+    "strong_negative",
+    "negative",
+    "neutral",
+    "positive",
+    "strong_positive",
+    "insufficient_evidence",
 )
 
 CAUSAL_CLAIM_TYPES = (

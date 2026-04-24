@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aligned-equity.local/schemas/evidence-record.schema.json",
+  "title": "Aligned Equity Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "company_id",
+    "source_id",
+    "source_family",
+    "evidence_class",
+    "document_type",
+    "observed_at",
+    "collected_at",
+    "source_locator",
+    "language",
+    "extraction_method",
+    "source_confidence",
+    "extraction_confidence",
+    "interpretation_confidence",
+    "confidence_notes",
+    "same_firm_comparable",
+    "cross_firm_comparable",
+    "period_alignment",
+    "accounting_scope",
+    "restatement_status",
+    "comparability_notes",
+    "bias_flags",
+    "legal_or_enforcement_override"
+  ],
+  "properties": {
+    "evidence_id": { "type": "string", "minLength": 1 },
+    "company_id": { "type": "string", "minLength": 1 },
+    "source_id": { "type": "string", "minLength": 1 },
+    "source_family": {
+      "type": "string",
+      "enum": [
+        "company_ir_annual_reporting",
+        "nasdaq_helsinki_announcements",
+        "finnish_securities_market_association",
+        "fin_fsa_supervision",
+        "prh_trade_register",
+        "presentations_transcripts_capital_markets_days",
+        "business_media_analyst_coverage",
+        "people_platforms"
+      ]
+    },
+    "evidence_class": {
+      "type": "string",
+      "enum": [
+        "governance_statement",
+        "code_deviation",
+        "remuneration_report",
+        "remuneration_policy",
+        "esef_financials",
+        "pdmr_notice",
+        "earnings_call",
+        "leadership_change",
+        "regulatory_event",
+        "people_signal_aux"
+      ]
+    },
+    "document_type": { "type": "string", "minLength": 1 },
+    "observed_at": { "type": "string", "minLength": 1 },
+    "period_start": { "type": "string", "minLength": 1 },
+    "period_end": { "type": "string", "minLength": 1 },
+    "effective_date": { "type": "string", "minLength": 1 },
+    "collected_at": { "type": "string", "minLength": 1 },
+    "source_locator": { "type": "string", "minLength": 1 },
+    "language": { "type": "string", "minLength": 1 },
+    "raw_hash": { "type": "string", "minLength": 1 },
+    "extraction_method": { "type": "string", "minLength": 1 },
+    "source_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "extraction_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "interpretation_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "confidence_notes": { "type": "string", "minLength": 1 },
+    "same_firm_comparable": {
+      "type": "string",
+      "enum": ["yes", "partial", "no"]
+    },
+    "cross_firm_comparable": {
+      "type": "string",
+      "enum": ["yes", "partial", "no"]
+    },
+    "period_alignment": {
+      "type": "string",
+      "enum": ["aligned", "shifted", "point-in-time", "unknown"]
+    },
+    "accounting_scope": {
+      "type": "string",
+      "enum": ["parent", "group", "segment", "unknown", "not-applicable"]
+    },
+    "restatement_status": {
+      "type": "string",
+      "enum": ["original", "restated", "corrected", "unknown", "not-applicable"]
+    },
+    "comparability_notes": { "type": "string", "minLength": 1 },
+    "bias_flags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "legal_or_enforcement_override": { "type": "boolean" },
+    "override_severity": {
+      "type": "string",
+      "enum": ["watch", "thesis_weakened", "deteriorating", "avoid"]
+    },
+    "override_expiry_review_date": { "type": "string", "format": "date" }
+  }
+}
