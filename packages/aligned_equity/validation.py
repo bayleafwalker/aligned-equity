@@ -51,6 +51,7 @@ REQUIRED_DOCS = (
     "docs/architecture/lens-model.md",
     "docs/architecture/homelab-analytics-platform-contract.md",
     "docs/specifications/finland-source-inventory.md",
+    "docs/specifications/phase-1-source-fixture-boundaries.md",
     "docs/specifications/source-ledger-record-spec.md",
     "docs/specifications/evidence-record-spec.md",
     "docs/specifications/lens-scorecard-spec.md",

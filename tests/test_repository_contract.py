@@ -51,6 +51,9 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     source_inventory = (
         REPO_ROOT / "docs/specifications/finland-source-inventory.md"
     ).read_text(encoding="utf-8")
+    source_fixture_boundaries = (
+        REPO_ROOT / "docs/specifications/phase-1-source-fixture-boundaries.md"
+    ).read_text(encoding="utf-8")
     hla_spike = (
         REPO_ROOT / "docs/specifications/hla-publication-contract-spike.md"
     ).read_text(encoding="utf-8")
@@ -86,6 +89,19 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     assert "event override" in lens
     assert "people-platform" in source_inventory
     assert "not a primary scored axis" in source_inventory
+    for source_family in (
+        "company_ir_annual_reporting",
+        "nasdaq_helsinki_announcements",
+        "finnish_securities_market_association",
+        "fin_fsa_supervision",
+        "prh_trade_register",
+        "presentations_transcripts_capital_markets_days",
+        "business_media_analyst_coverage",
+        "people_platforms",
+    ):
+        assert source_family in source_fixture_boundaries
+    assert "People-platform evidence without bias flags" in source_fixture_boundaries
+    assert "without network access" in source_fixture_boundaries
     assert "Aligned Equity does not import HLA" in hla_spike
     assert "value_of_information_assessment" in decision_output
     assert "causal_design" in decision_output
