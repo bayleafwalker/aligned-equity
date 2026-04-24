@@ -6,6 +6,7 @@ comparability context that later evidence records and decision outputs must not
 silently discard.
 
 The schema-backed contract lives in `schemas/source-ledger-record.schema.json`.
+Runtime validation is exposed by `aligned_equity.source_ledger.validate_source_ledger_record`.
 
 ## Required Record Fields
 
