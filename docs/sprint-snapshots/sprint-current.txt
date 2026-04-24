@@ -1,35 +1,35 @@
-SPRINT: finland-evidence-spine  [closed]
-Goal:   Define the Finland-first source, evidence, lens, HLA publication, and decision-impact spine for Phase 0.
-Dates:  2026-04-20 to 2026-05-01
-ID:     1
-Items:  10 total — 10 done, 0 active, 0 pending, 0 blocked
+SPRINT: helsinki-ingestion-ledger  [active]
+Goal:   Establish the Phase 1 ingestion and normalization foundation for Finland-first evidence while preserving core package independence and avoiding connector-heavy dependencies until each source is accepted.
+Dates:  2026-04-24 to 2026-05-08
+ID:     2
+Items:  7 total — 2 done, 0 active, 5 pending, 0 blocked
 
 --- Track: workflow ---
-  health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #1  Onboard repo-local sprintctl, agent, and workflow scaffolding  (assignee: -)
-  [done    ] #7  Adopt HLA-style working-process dispatch runbooks  (assignee: -)
+  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #11  Open Phase 1 ingestion-ledger sprint packet  (assignee: -)
 
 --- Track: evidence ---
-  health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #3  Specify evidence records with confidence and comparability fields  (assignee: -)
-  [done    ] #9  Dispatch evidence-to-decision vertical slice  (assignee: -)
+  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #12  Specify source ledger records for ingestion freshness and comparability  (assignee: -)
+
+--- Track: ingestion ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #14  Implement normalized source-ledger validation helpers  (assignee: -)
 
 --- Track: sources ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #2  Define Finland-first source inventory  (assignee: -)
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #13  Define accepted Phase 1 source families and fixture boundaries  (assignee: -)
 
---- Track: lenses ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #4  Specify dimensional scorecard and research-state transitions  (assignee: -)
-
---- Track: platform ---
-  health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #5  Spike HLA publication contract  (assignee: -)
-  [done    ] #10  Prepare decision memo HLA publication metadata  (assignee: -)
+--- Track: entities ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #15  Specify company, security, and source identifier normalization  (assignee: -)
 
 --- Track: product ---
-  health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #6  Define six-month decision-impact success criteria  (assignee: -)
-  [done    ] #8  Specify decision-output contract and causal guardrails  (assignee: -)
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #16  Define ingestion readiness gates for decision-output use  (assignee: -)
 
-Rendered: 2026-04-24T14:57:39Z
+--- Track: platform ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #17  Keep HLA publication surfaces compatible with ingestion metadata  (assignee: -)
+
+Rendered: 2026-04-24T15:03:07Z

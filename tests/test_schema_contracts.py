@@ -12,6 +12,10 @@ from aligned_equity.contracts import (
     EVIDENCE_CLASSES,
     LENS_KEYS,
     RESEARCH_STATES,
+    SOURCE_EXTRACTION_READINESS,
+    SOURCE_FRESHNESS_STATUSES,
+    SOURCE_RETRIEVAL_METHODS,
+    SOURCE_UPDATE_FREQUENCIES,
     VALUE_OF_INFORMATION_ASSESSMENTS,
 )
 
@@ -39,6 +43,53 @@ def test_evidence_record_schema_rejects_unknown_source_family() -> None:
     schema = _schema("evidence-record.schema.json")
     payload = _evidence_record_payload()
     payload["source_family"] = "us_proxy_statement_feed"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
+def test_source_ledger_record_schema_accepts_required_contract() -> None:
+    schema = _schema("source-ledger-record.schema.json")
+    jsonschema.validate(_source_ledger_payload(), schema)
+
+
+@pytest.mark.parametrize("retrieval_method", SOURCE_RETRIEVAL_METHODS)
+def test_source_ledger_schema_accepts_retrieval_methods(retrieval_method: str) -> None:
+    schema = _schema("source-ledger-record.schema.json")
+    payload = _source_ledger_payload()
+    payload["retrieval_method"] = retrieval_method
+    jsonschema.validate(payload, schema)
+
+
+@pytest.mark.parametrize("update_frequency", SOURCE_UPDATE_FREQUENCIES)
+def test_source_ledger_schema_accepts_update_frequencies(update_frequency: str) -> None:
+    schema = _schema("source-ledger-record.schema.json")
+    payload = _source_ledger_payload()
+    payload["expected_update_frequency"] = update_frequency
+    jsonschema.validate(payload, schema)
+
+
+@pytest.mark.parametrize("freshness_status", SOURCE_FRESHNESS_STATUSES)
+def test_source_ledger_schema_accepts_freshness_statuses(freshness_status: str) -> None:
+    schema = _schema("source-ledger-record.schema.json")
+    payload = _source_ledger_payload()
+    payload["freshness_status"] = freshness_status
+    jsonschema.validate(payload, schema)
+
+
+@pytest.mark.parametrize("extraction_readiness", SOURCE_EXTRACTION_READINESS)
+def test_source_ledger_schema_accepts_extraction_readiness(
+    extraction_readiness: str,
+) -> None:
+    schema = _schema("source-ledger-record.schema.json")
+    payload = _source_ledger_payload()
+    payload["extraction_readiness"] = extraction_readiness
+    jsonschema.validate(payload, schema)
+
+
+def test_source_ledger_schema_rejects_unknown_freshness_status() -> None:
+    schema = _schema("source-ledger-record.schema.json")
+    payload = _source_ledger_payload()
+    payload["freshness_status"] = "good_enough"
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(payload, schema)
 
@@ -145,6 +196,29 @@ def _evidence_record_payload() -> dict[str, Any]:
         "comparability_notes": "Cross-firm comparison is not used.",
         "bias_flags": [],
         "legal_or_enforcement_override": False,
+    }
+
+
+def _source_ledger_payload() -> dict[str, Any]:
+    return {
+        "source_id": "source-1",
+        "source_family": "company_ir_annual_reporting",
+        "source_name": "Example annual report",
+        "source_locator": "https://example.test/report",
+        "publisher": "Example Oyj",
+        "retrieval_method": "manual",
+        "collected_at": "2026-04-24T12:00:00Z",
+        "observed_at": "2026-04-24",
+        "freshness_as_of": "2026-04-24",
+        "expected_update_frequency": "annual",
+        "freshness_status": "current",
+        "language": "en",
+        "source_confidence": "high",
+        "extraction_readiness": "ready",
+        "same_firm_comparable": "partial",
+        "cross_firm_comparable": "no",
+        "comparability_notes": "Cross-firm comparison is not used.",
+        "bias_flags": [],
     }
 
 

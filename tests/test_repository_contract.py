@@ -68,6 +68,20 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     ):
         assert field in evidence
 
+    source_ledger = (
+        REPO_ROOT / "docs/specifications/source-ledger-record-spec.md"
+    ).read_text(encoding="utf-8")
+    for field in (
+        "freshness_status",
+        "extraction_readiness",
+        "same_firm_comparable",
+        "cross_firm_comparable",
+        "bias_flags",
+    ):
+        assert field in source_ledger
+    assert "Source-ledger records do not contain extracted feature values" in source_ledger
+    assert "Live ingestion jobs" in source_ledger
+
     assert "Allowed transitions" in lens
     assert "event override" in lens
     assert "people-platform" in source_inventory

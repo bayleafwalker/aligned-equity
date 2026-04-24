@@ -64,6 +64,36 @@ RESTATEMENT_STATUS_VALUES = (
     "not-applicable",
 )
 
+SOURCE_RETRIEVAL_METHODS = (
+    "manual",
+    "download",
+    "registry_api",
+    "vendor_feed",
+    "fixture",
+)
+
+SOURCE_UPDATE_FREQUENCIES = (
+    "annual",
+    "quarterly",
+    "event-driven",
+    "irregular",
+    "one-off",
+    "unknown",
+)
+
+SOURCE_FRESHNESS_STATUSES = (
+    "current",
+    "stale",
+    "unknown",
+    "not-applicable",
+)
+
+SOURCE_EXTRACTION_READINESS = (
+    "ready",
+    "manual-review-required",
+    "not-ready",
+)
+
 LENS_KEYS = (
     "investment",
     "workplace",

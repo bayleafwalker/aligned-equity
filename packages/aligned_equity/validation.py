@@ -19,7 +19,11 @@ from aligned_equity.contracts import (
     RESEARCH_STATES,
     RESTATEMENT_STATUS_VALUES,
     SCHEMA_DIR,
+    SOURCE_EXTRACTION_READINESS,
     SOURCE_FAMILIES,
+    SOURCE_FRESHNESS_STATUSES,
+    SOURCE_RETRIEVAL_METHODS,
+    SOURCE_UPDATE_FREQUENCIES,
     VALUE_OF_INFORMATION_ASSESSMENTS,
 )
 
@@ -47,6 +51,7 @@ REQUIRED_DOCS = (
     "docs/architecture/lens-model.md",
     "docs/architecture/homelab-analytics-platform-contract.md",
     "docs/specifications/finland-source-inventory.md",
+    "docs/specifications/source-ledger-record-spec.md",
     "docs/specifications/evidence-record-spec.md",
     "docs/specifications/lens-scorecard-spec.md",
     "docs/specifications/decision-output-contract.md",
@@ -141,6 +146,29 @@ def _validate_registry_manifest(repo_root: Path) -> list[str]:
 def _validate_schemas(repo_root: Path) -> list[str]:
     examples = (
         ("evidence-class.schema.json", {"evidence_class": EVIDENCE_CLASSES[0]}),
+        (
+            "source-ledger-record.schema.json",
+            {
+                "source_id": "source-1",
+                "source_family": SOURCE_FAMILIES[0],
+                "source_name": "Example annual report",
+                "source_locator": "https://example.test/report",
+                "publisher": "Example Oyj",
+                "retrieval_method": SOURCE_RETRIEVAL_METHODS[0],
+                "collected_at": "2026-04-24T12:00:00Z",
+                "observed_at": "2026-04-24",
+                "freshness_as_of": "2026-04-24",
+                "expected_update_frequency": SOURCE_UPDATE_FREQUENCIES[0],
+                "freshness_status": SOURCE_FRESHNESS_STATUSES[0],
+                "language": "en",
+                "source_confidence": CONFIDENCE_LEVELS[0],
+                "extraction_readiness": SOURCE_EXTRACTION_READINESS[0],
+                "same_firm_comparable": COMPARABILITY_LEVELS[1],
+                "cross_firm_comparable": COMPARABILITY_LEVELS[2],
+                "comparability_notes": "Cross-firm comparison is not used.",
+                "bias_flags": [],
+            },
+        ),
         (
             "evidence-record.schema.json",
             {
