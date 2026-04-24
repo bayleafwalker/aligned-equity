@@ -1,4 +1,4 @@
-SPRINT: finland-evidence-spine  [active]
+SPRINT: finland-evidence-spine  [closed]
 Goal:   Define the Finland-first source, evidence, lens, HLA publication, and decision-impact spine for Phase 0.
 Dates:  2026-04-20 to 2026-05-01
 ID:     1
@@ -32,4 +32,4 @@ Items:  10 total — 10 done, 0 active, 0 pending, 0 blocked
   [done    ] #6  Define six-month decision-impact success criteria  (assignee: -)
   [done    ] #8  Specify decision-output contract and causal guardrails  (assignee: -)
 
-Rendered: 2026-04-24T14:52:56Z
+Rendered: 2026-04-24T14:57:39Z
