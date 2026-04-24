@@ -6,6 +6,7 @@ from typing import Any
 import jsonschema
 
 from aligned_equity.decision_output import validate_decision_output
+from aligned_equity.source_ledger import validate_decision_readiness
 from aligned_equity.validation import load_json
 
 
@@ -38,12 +39,24 @@ def build_decision_output(
     value_of_information_note: str,
     schema_dir: Path,
     causal_claim: dict[str, Any] | None = None,
+    source_ledger_records: list[dict[str, Any]] | None = None,
 ) -> tuple[dict[str, Any], list[str]]:
     """Build and validate a minimal evidence-to-decision memo payload."""
 
     errors: list[str] = []
     for record in evidence_records:
         errors.extend(validate_evidence_record(record, schema_dir))
+    if errors:
+        return {}, errors
+    if source_ledger_records is not None:
+        errors.extend(
+            validate_decision_readiness(
+                evidence_records=evidence_records,
+                source_ledger_records=source_ledger_records,
+                value_of_information_assessment=value_of_information_assessment,
+                schema_dir=schema_dir,
+            )
+        )
     if errors:
         return {}, errors
 
