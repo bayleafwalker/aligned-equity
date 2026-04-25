@@ -27,6 +27,7 @@
 - `specifications/reporting-style-change-detection.md` - disclosure-style and reporting-change feature boundary
 - `specifications/remuneration-logic-extraction.md` - deterministic remuneration-policy and realized-pay feature boundary
 - `specifications/scorecard-run-spec.md` - scorecard run fields, dimension assessments, lineage, and caveats
+- `specifications/lens-output-contract.md` - lens-specific output fields and scorecard-consumption boundaries
 - `specifications/lens-scorecard-spec.md` - scorecard dimensions, lens outputs, and research-state transitions
 - `specifications/decision-output-contract.md` - decision memo fields, value-of-information notes, and causal guardrails
 - `specifications/hla-publication-contract-spike.md` - reserved HLA publications and future contract checks

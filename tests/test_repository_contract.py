@@ -75,6 +75,9 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     scorecard_run = (
         REPO_ROOT / "docs/specifications/scorecard-run-spec.md"
     ).read_text(encoding="utf-8")
+    lens_output = (
+        REPO_ROOT / "docs/specifications/lens-output-contract.md"
+    ).read_text(encoding="utf-8")
     decision_output = (
         REPO_ROOT / "docs/specifications/decision-output-contract.md"
     ).read_text(encoding="utf-8")
@@ -174,6 +177,15 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
         assert field in scorecard_run
     assert "Scorecard runs do not extract feature values" in scorecard_run
     assert "Scorecard runs do not contain lens weights" in scorecard_run
+    for field in (
+        "lens_output_id",
+        "scorecard_run_id",
+        "dimension_emphasis",
+        "allowed_output_uses",
+    ):
+        assert field in lens_output
+    assert "Lens outputs do not create research-state transitions" in lens_output
+    assert "Lens outputs must not make numeric predictive claims" in lens_output
     assert "Aligned Equity does not import HLA" in hla_spike
     assert "aligned_equity_feature_record" in hla_spike
     assert "aligned_equity_time_series_view" in hla_spike

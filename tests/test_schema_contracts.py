@@ -209,6 +209,37 @@ def test_lens_schema_rejects_unknown_value() -> None:
         jsonschema.validate({"lens_key": "supplier"}, schema)
 
 
+def test_lens_output_schema_accepts_required_contract() -> None:
+    schema = _schema("lens-output.schema.json")
+    jsonschema.validate(_lens_output_payload(), schema)
+
+
+@pytest.mark.parametrize("lens_key", LENS_KEYS)
+def test_lens_output_schema_accepts_lens_keys(lens_key: str) -> None:
+    schema = _schema("lens-output.schema.json")
+    payload = _lens_output_payload()
+    payload["lens_key"] = lens_key
+    payload["decision_context"] = lens_key
+    jsonschema.validate(payload, schema)
+
+
+def test_lens_output_schema_rejects_mismatched_decision_context() -> None:
+    schema = _schema("lens-output.schema.json")
+    payload = _lens_output_payload()
+    payload["lens_key"] = "investment"
+    payload["decision_context"] = "workplace"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
+def test_lens_output_schema_rejects_state_transition_fields() -> None:
+    schema = _schema("lens-output.schema.json")
+    payload = _lens_output_payload()
+    payload["next_research_state"] = "thesis_strengthened"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
 @pytest.mark.parametrize("research_state", RESEARCH_STATES)
 def test_research_state_schema_accepts_allowed_values(research_state: str) -> None:
     schema = _schema("research-state.schema.json")
@@ -502,4 +533,24 @@ def _scorecard_run_payload() -> dict[str, Any]:
         "comparability_summary": "Same-firm comparison is partial.",
         "source_freshness_summary": "Source freshness is current.",
         "scorecard_notes": "Fixture scorecard run.",
+    }
+
+
+def _lens_output_payload() -> dict[str, Any]:
+    return {
+        "lens_output_id": "lens-output-1",
+        "scorecard_run_id": "scorecard-1",
+        "company_id": "example-company",
+        "analysis_date": "2026-04-25",
+        "lens_key": "investment",
+        "decision_context": "investment",
+        "dimension_emphasis": ["governance and accountability"],
+        "material_scorecard_dimensions": ["governance and accountability"],
+        "material_evidence_ids": ["evidence-1"],
+        "material_feature_ids": ["feature-1"],
+        "time_series_ids": ["series-1"],
+        "confidence_summary": "Confidence is medium.",
+        "comparability_summary": "Same-firm comparison is partial.",
+        "lens_rationale": "The investment lens emphasizes governance for the decision context.",
+        "allowed_output_uses": ["decision_memo"],
     }
