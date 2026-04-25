@@ -24,6 +24,7 @@ from aligned_equity.contracts import (
     VALUE_OF_INFORMATION_ASSESSMENTS,
 )
 from aligned_equity.features import validate_feature_record
+from aligned_equity.scorecards import validate_scorecard_run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIR = REPO_ROOT / "schemas"
@@ -306,6 +307,34 @@ def test_scorecard_run_schema_rejects_lens_fields() -> None:
     payload["lens_key"] = "investment"
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(payload, schema)
+
+
+def test_scorecard_run_validation_accepts_required_contract() -> None:
+    assert validate_scorecard_run(_scorecard_run_payload(), SCHEMA_DIR) == []
+
+
+def test_scorecard_run_validation_rejects_duplicate_dimensions() -> None:
+    payload = _scorecard_run_payload()
+    payload["dimension_assessments"].append(payload["dimension_assessments"][0].copy())
+    assert validate_scorecard_run(payload, SCHEMA_DIR) == [
+        "scorecard dimension_assessments must not repeat a dimension"
+    ]
+
+
+def test_scorecard_run_validation_rejects_non_material_feature_link() -> None:
+    payload = _scorecard_run_payload()
+    payload["dimension_assessments"][0]["feature_ids"] = ["feature-2"]
+    assert validate_scorecard_run(payload, SCHEMA_DIR) == [
+        "dimension_assessments[0] feature_ids must be material to the scorecard run"
+    ]
+
+
+def test_scorecard_run_validation_rejects_non_material_time_series_link() -> None:
+    payload = _scorecard_run_payload()
+    payload["dimension_assessments"][0]["time_series_ids"] = ["series-2"]
+    assert validate_scorecard_run(payload, SCHEMA_DIR) == [
+        "dimension_assessments[0] time_series_ids must be material to the scorecard run"
+    ]
 
 
 def _schema(name: str) -> dict[str, object]:
