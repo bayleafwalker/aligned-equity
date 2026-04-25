@@ -1,5 +1,5 @@
 # Knowledge Base — aligned-equity
-Generated: 2026-04-24T16:01:29Z
+Generated: 2026-04-25T05:56:07Z
 
 ## Decisions
 
@@ -104,5 +104,55 @@ Source: sprint: 1
 Tags: workflow, hla-boundary, phase-0
 
 Aligned Equity adopted repo-local sprintctl and kctl workflow targets, agent mode guides, and reusable skills from the homelab-analytics operating model while keeping the core package independently installable and HLA integration behind the manifest and no-op hooks.
+
+---
+
+## Patterns
+
+### Remuneration-logic extraction is bounded to deterministic feature records for policy design and realized-pay logic; it records criteria, horizons, clawback terms, effective dates, realized-pay comparison periods, and explanation specificity without asserting incentive alignment or causality.
+Source: track: remuneration, sprint: 3
+Tags: remuneration, features, causal-guardrails
+
+Remuneration-logic extraction is bounded to deterministic feature records for policy design and realized-pay logic. It records criteria, horizons, clawback terms, effective dates, realized-pay comparison periods, and explanation specificity without asserting incentive alignment or causality.
+
+---
+
+### Feature-record and same-firm time-series HLA publication surfaces are reserved with package-level semantic metadata; integration hooks remain import-safe and no-op until a later implementation sprint registers real HLA publications.
+Source: track: platform, sprint: 3
+Tags: hla, publication-metadata, features
+
+Feature-record and same-firm time-series HLA publication surfaces are reserved with package-level semantic metadata. Keep integration hooks import-safe and no-op until a later implementation sprint registers real HLA publications.
+
+---
+
+### Reporting-style change detection emits deterministic disclosure_style and reporting_change feature records from same-firm disclosure shifts; omissions, boilerplate, specificity, corrections, and contradictions remain feature evidence, not scorecard judgments.
+Source: track: evidence, sprint: 3
+Tags: features, reporting-style, evidence
+
+Reporting-style change detection emits deterministic disclosure_style and reporting_change feature records from same-firm disclosure shifts. Omissions, boilerplate, specificity changes, corrections, restatements, and contradictions are feature evidence for review, not direct scorecard judgments about candor or management quality.
+
+---
+
+### Same-firm time-series views are a read model over validated feature records; they own grouping, ordering, gap notes, restatement exposure, lineage roll-ups, and comparability caveats, but not scorecard dimensions or lens outputs.
+Source: track: features, sprint: 3
+Tags: features, time-series, comparability
+
+Same-firm time-series views are read models over validated feature records. They own grouping, ordering, gap notes, restatement exposure, lineage roll-ups, and comparability caveats, but they must not contain scorecard dimensions, lens weights, research-state transitions, or decision recommendations.
+
+---
+
+### Feature validation layers semantic checks over JSON Schema for value-type coupling, period pair completeness, and auxiliary people-signal bias flags.
+Source: track: features, sprint: 3
+Tags: features, validation
+
+Feature validation uses JSON Schema for structural shape and a semantic helper for value-type coupling, period-pair completeness, and auxiliary people-signal bias flags. Keep feature-specific semantics in aligned_equity.features rather than expanding generic repository validation.
+
+---
+
+### Feature records preserve extraction-rule identity and evidence/source lineage while carrying evidence comparability forward for longitudinal use.
+Source: track: features, sprint: 3
+Tags: features, lineage, comparability
+
+Feature records preserve extraction-rule identity plus evidence and source lineage while carrying confidence and comparability fields forward. Longitudinal views and scorecards should consume those fields instead of recomputing or hiding lineage caveats.
 
 ---
