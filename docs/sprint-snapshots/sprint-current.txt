@@ -1,24 +1,31 @@
-SPRINT: tampere-feature-thread  [closed]
-Goal:   Establish Phase 2 longitudinal feature extraction over the defined source, evidence, entity, and publication contracts.
-ID:     3
-Items:  6 total — 6 done, 0 active, 0 pending, 0 blocked
+SPRINT: turku-scorecard-bridge  [active]
+Goal:   Establish Phase 3 scorecard, lens-output, same-firm report, and research-state contracts over the longitudinal feature spine.
+ID:     4
+Items:  7 total — 1 done, 0 active, 6 pending, 0 blocked
 
---- Track: evidence ---
+--- Track: workflow ---
   health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #21  Add reporting-style change detection spec  (assignee: -)
+  [done    ] #24  Open Phase 3 scorecard bridge sprint packet  (assignee: -)
 
---- Track: features ---
-  health: 3 items — 3 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #18  Define same-firm time-series view contract  (assignee: -)
-  [done    ] #19  Implement feature validation helper  (assignee: -)
-  [done    ] #20  Specify deterministic feature record schema  (assignee: -)
+--- Track: scorecards ---
+  health: 2 items — 0 done (0%), 0 active, 2 pending, 0 blocked (0%)
+  [pending ] #25  Specify scorecard run and dimension assessment contract  (assignee: -)
+  [pending ] #26  Implement scorecard validation helper  (assignee: -)
+
+--- Track: lenses ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #27  Define lens-specific output contract  (assignee: -)
+
+--- Track: reports ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #28  Define same-firm over-time report contract  (assignee: -)
+
+--- Track: states ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #29  Implement research-state transition validation  (assignee: -)
 
 --- Track: platform ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #22  Add HLA metadata for feature and time-series publication surfaces  (assignee: -)
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #30  Add HLA metadata for scorecard and research-state surfaces  (assignee: -)
 
---- Track: remuneration ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #23  Define remuneration-logic extraction boundary  (assignee: -)
-
-Rendered: 2026-04-25T05:56:39Z
+Rendered: 2026-04-25T05:58:30Z

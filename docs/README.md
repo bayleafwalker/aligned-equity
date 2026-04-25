@@ -7,6 +7,7 @@
 - `operational-shape.md` - seed operating model, roadmap, and Finland-first direction
 - `plans/phase-0-roadmap.md` - concrete initialization-to-first-sprint plan
 - `plans/phase-1-ingestion-ledger-sprint.md` - active Phase 1 ingestion-ledger sprint packet
+- `plans/phase-3-scorecard-bridge-sprint.md` - active Phase 3 scorecard bridge sprint packet
 
 ## Architecture
 
