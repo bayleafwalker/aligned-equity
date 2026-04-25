@@ -1,4 +1,4 @@
-SPRINT: tampere-feature-thread  [active]
+SPRINT: tampere-feature-thread  [closed]
 Goal:   Establish Phase 2 longitudinal feature extraction over the defined source, evidence, entity, and publication contracts.
 ID:     3
 Items:  6 total — 6 done, 0 active, 0 pending, 0 blocked
@@ -21,4 +21,4 @@ Items:  6 total — 6 done, 0 active, 0 pending, 0 blocked
   health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
   [done    ] #23  Define remuneration-logic extraction boundary  (assignee: -)
 
-Rendered: 2026-04-25T05:51:33Z
+Rendered: 2026-04-25T05:56:39Z
