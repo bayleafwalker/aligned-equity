@@ -10,6 +10,9 @@ from aligned_equity.contracts import (
     CAUSAL_CLAIM_TYPES,
     DECISION_CONTEXTS,
     EVIDENCE_CLASSES,
+    FEATURE_EXTRACTION_METHODS,
+    FEATURE_FAMILIES,
+    FEATURE_VALUE_TYPES,
     LENS_KEYS,
     RESEARCH_STATES,
     SOURCE_EXTRACTION_READINESS,
@@ -18,8 +21,10 @@ from aligned_equity.contracts import (
     SOURCE_UPDATE_FREQUENCIES,
     VALUE_OF_INFORMATION_ASSESSMENTS,
 )
+from aligned_equity.features import validate_feature_record
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_DIR = REPO_ROOT / "schemas"
 
 
 @pytest.mark.parametrize("evidence_class", EVIDENCE_CLASSES)
@@ -105,6 +110,88 @@ def test_source_ledger_schema_rejects_unknown_freshness_status() -> None:
     payload["freshness_status"] = "good_enough"
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(payload, schema)
+
+
+def test_feature_record_schema_accepts_required_contract() -> None:
+    schema = _schema("feature-record.schema.json")
+    jsonschema.validate(_feature_record_payload(), schema)
+
+
+@pytest.mark.parametrize("feature_family", FEATURE_FAMILIES)
+def test_feature_record_schema_accepts_feature_families(feature_family: str) -> None:
+    schema = _schema("feature-record.schema.json")
+    payload = _feature_record_payload()
+    payload["feature_family"] = feature_family
+    jsonschema.validate(payload, schema)
+
+
+@pytest.mark.parametrize("value_type", FEATURE_VALUE_TYPES)
+def test_feature_record_schema_accepts_value_types(value_type: str) -> None:
+    schema = _schema("feature-record.schema.json")
+    payload = _feature_record_payload()
+    payload["feature_value_type"] = value_type
+    jsonschema.validate(payload, schema)
+
+
+@pytest.mark.parametrize("extraction_method", FEATURE_EXTRACTION_METHODS)
+def test_feature_record_schema_accepts_extraction_methods(extraction_method: str) -> None:
+    schema = _schema("feature-record.schema.json")
+    payload = _feature_record_payload()
+    payload["extraction_method"] = extraction_method
+    jsonschema.validate(payload, schema)
+
+
+def test_feature_record_schema_rejects_missing_evidence_links() -> None:
+    schema = _schema("feature-record.schema.json")
+    payload = _feature_record_payload()
+    payload["source_evidence_ids"] = []
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
+def test_feature_record_schema_rejects_scorecard_fields() -> None:
+    schema = _schema("feature-record.schema.json")
+    payload = _feature_record_payload()
+    payload["scorecard_dimension"] = "governance and accountability"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
+def test_feature_record_validation_accepts_required_contract() -> None:
+    assert validate_feature_record(_feature_record_payload(), SCHEMA_DIR) == []
+
+
+def test_feature_record_validation_rejects_numeric_type_mismatch() -> None:
+    payload = _feature_record_payload()
+    payload["feature_value"] = "0.75"
+    assert validate_feature_record(payload, SCHEMA_DIR) == [
+        "numeric feature_value_type requires a numeric feature_value"
+    ]
+
+
+def test_feature_record_validation_rejects_boolean_type_mismatch() -> None:
+    payload = _feature_record_payload()
+    payload["feature_value_type"] = "boolean"
+    payload["feature_value"] = 1
+    assert validate_feature_record(payload, SCHEMA_DIR) == [
+        "boolean feature_value_type requires a boolean feature_value"
+    ]
+
+
+def test_feature_record_validation_rejects_people_signal_without_bias_flags() -> None:
+    payload = _feature_record_payload()
+    payload["feature_family"] = "people_signal_aux"
+    assert validate_feature_record(payload, SCHEMA_DIR) == [
+        "people_signal_aux feature records require at least one bias flag"
+    ]
+
+
+def test_feature_record_validation_rejects_incomplete_period_pair() -> None:
+    payload = _feature_record_payload()
+    del payload["period_end"]
+    assert validate_feature_record(payload, SCHEMA_DIR) == [
+        "period_start and period_end must be provided together"
+    ]
 
 
 @pytest.mark.parametrize("lens_key", LENS_KEYS)
@@ -260,6 +347,38 @@ def _source_ledger_payload() -> dict[str, Any]:
         "same_firm_comparable": "partial",
         "cross_firm_comparable": "no",
         "comparability_notes": "Cross-firm comparison is not used.",
+        "bias_flags": [],
+    }
+
+
+def _feature_record_payload() -> dict[str, Any]:
+    return {
+        "feature_id": "feature-1",
+        "company_id": "example-company",
+        "feature_key": "board_independence_ratio",
+        "feature_family": "governance_practice",
+        "feature_value_type": "numeric",
+        "feature_value": 0.75,
+        "feature_unit": "ratio",
+        "observed_at": "2026-04-24",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "extracted_at": "2026-04-24T12:30:00Z",
+        "source_evidence_ids": ["evidence-1"],
+        "source_ids": ["source-1"],
+        "extraction_rule_id": "board_independence_ratio",
+        "extraction_rule_version": "1",
+        "extraction_method": "exact_field",
+        "source_confidence": "high",
+        "extraction_confidence": "high",
+        "interpretation_confidence": "medium",
+        "confidence_notes": "Manual fixture with primary source lineage.",
+        "same_firm_comparable": "yes",
+        "cross_firm_comparable": "partial",
+        "period_alignment": "aligned",
+        "accounting_scope": "group",
+        "restatement_status": "original",
+        "comparability_notes": "Same-firm comparison is valid for the fixture period.",
         "bias_flags": [],
     }
 

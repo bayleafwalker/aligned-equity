@@ -21,6 +21,10 @@
 - `specifications/source-ledger-record-spec.md` - source freshness, coverage, retrieval, and comparability contract
 - `specifications/entity-identifier-normalization.md` - company, security, and source alias normalization contract
 - `specifications/evidence-record-spec.md` - schema-backed evidence fields, confidence, comparability, and override rules
+- `specifications/feature-record-spec.md` - deterministic feature fields, lineage, confidence, and comparability contract
+- `specifications/time-series-view-contract.md` - same-firm feature history grouping, gaps, restatements, and lineage contract
+- `specifications/reporting-style-change-detection.md` - disclosure-style and reporting-change feature boundary
+- `specifications/remuneration-logic-extraction.md` - deterministic remuneration-policy and realized-pay feature boundary
 - `specifications/lens-scorecard-spec.md` - scorecard dimensions, lens outputs, and research-state transitions
 - `specifications/decision-output-contract.md` - decision memo fields, value-of-information notes, and causal guardrails
 - `specifications/hla-publication-contract-spike.md` - reserved HLA publications and future contract checks

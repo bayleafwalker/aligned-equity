@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aligned-equity.local/schemas/feature-record.schema.json",
+  "title": "Aligned Equity Feature Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "feature_id",
+    "company_id",
+    "feature_key",
+    "feature_family",
+    "feature_value_type",
+    "feature_value",
+    "observed_at",
+    "extracted_at",
+    "source_evidence_ids",
+    "source_ids",
+    "extraction_rule_id",
+    "extraction_rule_version",
+    "extraction_method",
+    "source_confidence",
+    "extraction_confidence",
+    "interpretation_confidence",
+    "confidence_notes",
+    "same_firm_comparable",
+    "cross_firm_comparable",
+    "period_alignment",
+    "accounting_scope",
+    "restatement_status",
+    "comparability_notes",
+    "bias_flags"
+  ],
+  "properties": {
+    "feature_id": { "type": "string", "minLength": 1 },
+    "company_id": { "type": "string", "minLength": 1 },
+    "feature_key": { "type": "string", "minLength": 1 },
+    "feature_family": {
+      "type": "string",
+      "enum": [
+        "governance_practice",
+        "remuneration_logic",
+        "financial_development",
+        "disclosure_style",
+        "reporting_change",
+        "capital_markets_signal",
+        "people_signal_aux"
+      ]
+    },
+    "feature_value_type": {
+      "type": "string",
+      "enum": ["boolean", "categorical", "numeric", "text", "date"]
+    },
+    "feature_value": {
+      "type": ["boolean", "number", "string"]
+    },
+    "feature_unit": { "type": "string", "minLength": 1 },
+    "observed_at": { "type": "string", "minLength": 1 },
+    "period_start": { "type": "string", "minLength": 1 },
+    "period_end": { "type": "string", "minLength": 1 },
+    "effective_date": { "type": "string", "minLength": 1 },
+    "extracted_at": { "type": "string", "minLength": 1 },
+    "source_evidence_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "extraction_rule_id": { "type": "string", "minLength": 1 },
+    "extraction_rule_version": { "type": "string", "minLength": 1 },
+    "extraction_method": {
+      "type": "string",
+      "enum": ["exact_field", "rule_based_parse", "manual_coding", "fixture"]
+    },
+    "source_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "extraction_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "interpretation_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "confidence_notes": { "type": "string", "minLength": 1 },
+    "same_firm_comparable": {
+      "type": "string",
+      "enum": ["yes", "partial", "no"]
+    },
+    "cross_firm_comparable": {
+      "type": "string",
+      "enum": ["yes", "partial", "no"]
+    },
+    "period_alignment": {
+      "type": "string",
+      "enum": ["aligned", "shifted", "point-in-time", "unknown"]
+    },
+    "accounting_scope": {
+      "type": "string",
+      "enum": ["parent", "group", "segment", "unknown", "not-applicable"]
+    },
+    "restatement_status": {
+      "type": "string",
+      "enum": ["original", "restated", "corrected", "unknown", "not-applicable"]
+    },
+    "comparability_notes": { "type": "string", "minLength": 1 },
+    "bias_flags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  }
+}

@@ -1,35 +1,24 @@
-SPRINT: helsinki-ingestion-ledger  [closed]
-Goal:   Establish the Phase 1 ingestion and normalization foundation for Finland-first evidence while preserving core package independence and avoiding connector-heavy dependencies until each source is accepted.
-Dates:  2026-04-24 to 2026-05-08
-ID:     2
-Items:  7 total — 7 done, 0 active, 0 pending, 0 blocked
-
---- Track: workflow ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #11  Open Phase 1 ingestion-ledger sprint packet  (assignee: -)
+SPRINT: tampere-feature-thread  [active]
+Goal:   Establish Phase 2 longitudinal feature extraction over the defined source, evidence, entity, and publication contracts.
+ID:     3
+Items:  6 total — 6 done, 0 active, 0 pending, 0 blocked
 
 --- Track: evidence ---
   health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #12  Specify source ledger records for ingestion freshness and comparability  (assignee: -)
+  [done    ] #21  Add reporting-style change detection spec  (assignee: -)
 
---- Track: ingestion ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #14  Implement normalized source-ledger validation helpers  (assignee: -)
-
---- Track: sources ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #13  Define accepted Phase 1 source families and fixture boundaries  (assignee: -)
-
---- Track: entities ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #15  Specify company, security, and source identifier normalization  (assignee: -)
-
---- Track: product ---
-  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #16  Define ingestion readiness gates for decision-output use  (assignee: -)
+--- Track: features ---
+  health: 3 items — 3 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #18  Define same-firm time-series view contract  (assignee: -)
+  [done    ] #19  Implement feature validation helper  (assignee: -)
+  [done    ] #20  Specify deterministic feature record schema  (assignee: -)
 
 --- Track: platform ---
   health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
-  [done    ] #17  Keep HLA publication surfaces compatible with ingestion metadata  (assignee: -)
+  [done    ] #22  Add HLA metadata for feature and time-series publication surfaces  (assignee: -)
 
-Rendered: 2026-04-24T16:01:29Z
+--- Track: remuneration ---
+  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #23  Define remuneration-logic extraction boundary  (assignee: -)
+
+Rendered: 2026-04-25T05:51:33Z

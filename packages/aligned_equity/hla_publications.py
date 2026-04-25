@@ -96,6 +96,184 @@ HLA_PUBLICATION_METADATA: Final[dict[str, PublicationMetadata]] = {
             },
         },
     },
+    "aligned_equity_feature_record": {
+        "grain": "one row per deterministic feature observation",
+        "purpose": (
+            "Publish validated feature records with evidence lineage, extraction-rule "
+            "identity, confidence, and comparability metadata."
+        ),
+        "fields": {
+            "feature_id": {
+                "semantic_type": "feature_identifier",
+                "description": "Stable Aligned Equity feature observation identifier.",
+            },
+            "company_id": {
+                "semantic_type": "entity_identifier",
+                "description": "Stable Aligned Equity company identity key.",
+            },
+            "feature_key": {
+                "semantic_type": "feature_key",
+                "description": "Stable machine key for the deterministic feature.",
+            },
+            "feature_family": {
+                "semantic_type": "feature_family",
+                "description": "Governance, remuneration, financial, disclosure, reporting, market, or auxiliary people feature family.",
+            },
+            "feature_value_type": {
+                "semantic_type": "feature_value_type",
+                "description": "Declared primitive type for the feature value.",
+            },
+            "feature_value": {
+                "semantic_type": "feature_value",
+                "description": "Deterministic extracted primitive value, not a scorecard assessment.",
+            },
+            "observed_at": {
+                "semantic_type": "feature_observed_timestamp",
+                "description": "Date or timestamp represented by the underlying evidence.",
+            },
+            "extracted_at": {
+                "semantic_type": "feature_extraction_timestamp",
+                "description": "Timestamp when Aligned Equity produced the feature record.",
+            },
+            "source_evidence_ids": {
+                "semantic_type": "evidence_reference_set",
+                "description": "Evidence records used to derive the feature.",
+            },
+            "source_ids": {
+                "semantic_type": "source_reference_set",
+                "description": "Source-ledger records represented by the linked evidence.",
+            },
+            "extraction_rule_id": {
+                "semantic_type": "extraction_rule_identifier",
+                "description": "Stable identifier for the extraction rule or manual coding rubric.",
+            },
+            "extraction_rule_version": {
+                "semantic_type": "extraction_rule_version",
+                "description": "Version of the extraction rule used for longitudinal auditability.",
+            },
+            "extraction_method": {
+                "semantic_type": "extraction_method",
+                "description": "Exact field, rule-based parse, manual coding, or fixture method.",
+            },
+            "source_confidence": {
+                "semantic_type": "source_confidence",
+                "description": "Authority and provenance confidence carried from source evidence.",
+            },
+            "extraction_confidence": {
+                "semantic_type": "extraction_confidence",
+                "description": "Reliability of extracting the feature value from source evidence.",
+            },
+            "interpretation_confidence": {
+                "semantic_type": "interpretation_confidence",
+                "description": "Reliability of mapping evidence into the deterministic feature.",
+            },
+            "confidence_notes": {
+                "semantic_type": "confidence_caveat",
+                "description": "Reason for source, extraction, or interpretation confidence limits.",
+            },
+            "same_firm_comparable": {
+                "semantic_type": "same_firm_comparability",
+                "description": "Whether the feature can compare against the same company's prior periods.",
+            },
+            "cross_firm_comparable": {
+                "semantic_type": "cross_firm_comparability",
+                "description": "Whether cross-firm comparison is valid without misleading normalization.",
+            },
+            "period_alignment": {
+                "semantic_type": "period_alignment",
+                "description": "Whether the feature period lines up with the target analysis period.",
+            },
+            "accounting_scope": {
+                "semantic_type": "accounting_scope",
+                "description": "Entity scope represented by the feature.",
+            },
+            "restatement_status": {
+                "semantic_type": "restatement_status",
+                "description": "Whether later source changes affect feature interpretation.",
+            },
+            "comparability_notes": {
+                "semantic_type": "comparability_caveat",
+                "description": "Caveats required before using the feature in views or scorecards.",
+            },
+            "bias_flags": {
+                "semantic_type": "bias_flag_set",
+                "description": "Source-family, extraction, or collection-channel bias flags.",
+            },
+        },
+    },
+    "aligned_equity_time_series_view": {
+        "grain": "one row per company, feature key, and time-series view",
+        "purpose": (
+            "Publish same-firm feature histories with ordered observations, lineage "
+            "roll-ups, gap notes, restatement exposure, and comparability caveats."
+        ),
+        "fields": {
+            "time_series_id": {
+                "semantic_type": "time_series_identifier",
+                "description": "Stable Aligned Equity identifier for the time-series view.",
+            },
+            "company_id": {
+                "semantic_type": "entity_identifier",
+                "description": "Stable company identity key shared by every included observation.",
+            },
+            "feature_key": {
+                "semantic_type": "feature_key",
+                "description": "Single deterministic feature key represented by the series.",
+            },
+            "feature_family": {
+                "semantic_type": "feature_family",
+                "description": "Feature family inherited from the included feature records.",
+            },
+            "observation_periods": {
+                "semantic_type": "ordered_feature_observation_set",
+                "description": "Ordered observations with period, value, feature lineage, confidence, and comparability metadata.",
+            },
+            "source_evidence_ids": {
+                "semantic_type": "evidence_reference_set",
+                "description": "Deduplicated evidence IDs represented by all observations in the view.",
+            },
+            "source_ids": {
+                "semantic_type": "source_reference_set",
+                "description": "Deduplicated source-ledger IDs represented by all observations in the view.",
+            },
+            "series_start": {
+                "semantic_type": "series_start",
+                "description": "Earliest period, effective date, or observation date represented by the series.",
+            },
+            "series_end": {
+                "semantic_type": "series_end",
+                "description": "Latest period, effective date, or observation date represented by the series.",
+            },
+            "same_firm_comparable": {
+                "semantic_type": "same_firm_comparability",
+                "description": "Roll-up comparability for using the sequence as a same-firm history.",
+            },
+            "period_alignment": {
+                "semantic_type": "period_alignment",
+                "description": "Roll-up period alignment across observations.",
+            },
+            "accounting_scope": {
+                "semantic_type": "accounting_scope",
+                "description": "Roll-up entity scope for the represented series.",
+            },
+            "restatement_status": {
+                "semantic_type": "restatement_status",
+                "description": "Whether the series includes original, restated, corrected, or unknown observations.",
+            },
+            "gap_notes": {
+                "semantic_type": "coverage_gap_caveat",
+                "description": "Explicit gaps in years, quarters, events, or comparable source coverage.",
+            },
+            "comparability_notes": {
+                "semantic_type": "comparability_caveat",
+                "description": "Caveats before the series can support interpretation.",
+            },
+            "confidence_notes": {
+                "semantic_type": "confidence_caveat",
+                "description": "Confidence caveats before the series can support interpretation.",
+            },
+        },
+    },
     "aligned_equity_decision_memo": {
         "grain": "one row per company, analysis date, and decision context",
         "purpose": "Publish decision-support outputs without exposing raw source payloads.",

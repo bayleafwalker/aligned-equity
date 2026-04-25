@@ -60,6 +60,18 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     hla_spike = (
         REPO_ROOT / "docs/specifications/hla-publication-contract-spike.md"
     ).read_text(encoding="utf-8")
+    feature_record = (
+        REPO_ROOT / "docs/specifications/feature-record-spec.md"
+    ).read_text(encoding="utf-8")
+    time_series_view = (
+        REPO_ROOT / "docs/specifications/time-series-view-contract.md"
+    ).read_text(encoding="utf-8")
+    reporting_style_change = (
+        REPO_ROOT / "docs/specifications/reporting-style-change-detection.md"
+    ).read_text(encoding="utf-8")
+    remuneration_logic = (
+        REPO_ROOT / "docs/specifications/remuneration-logic-extraction.md"
+    ).read_text(encoding="utf-8")
     decision_output = (
         REPO_ROOT / "docs/specifications/decision-output-contract.md"
     ).read_text(encoding="utf-8")
@@ -113,7 +125,48 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     ):
         assert field in entity_identifiers
     assert "Using ticker alone" in entity_identifiers
+    for field in (
+        "feature_id",
+        "feature_key",
+        "source_evidence_ids",
+        "extraction_rule_id",
+        "same_firm_comparable",
+    ):
+        assert field in feature_record
+    assert "Feature records do not contain scorecard dimensions" in feature_record
+    assert "People-platform-derived features remain auxiliary" in feature_record
+    for field in (
+        "time_series_id",
+        "observation_periods",
+        "gap_notes",
+        "restatement_status",
+    ):
+        assert field in time_series_view
+    assert "A view must contain one `company_id` and one `feature_key`" in time_series_view
+    assert "Time-series views do not contain scorecard dimensions" in time_series_view
+    for field in (
+        "reporting_topic_added",
+        "reporting_specificity_delta",
+        "reporting_claim_outcome_divergence",
+        "governance_deviation_explanation_change",
+    ):
+        assert field in reporting_style_change
+    assert "People-platform evidence is out of scope" in reporting_style_change
+    assert "Reporting-style features are not scorecard assessments" in reporting_style_change
+    for field in (
+        "variable_pay_criteria_present",
+        "long_term_incentive_horizon_years",
+        "malus_clawback_mechanism_present",
+        "realized_pay_comparison_period_years",
+    ):
+        assert field in remuneration_logic
+    assert "Remuneration-logic features are not scorecard assessments" in remuneration_logic
+    assert "People-platform, media, and analyst sources are out of scope" in remuneration_logic
     assert "Aligned Equity does not import HLA" in hla_spike
+    assert "aligned_equity_feature_record" in hla_spike
+    assert "aligned_equity_time_series_view" in hla_spike
+    assert "Feature Record Field Semantics" in hla_spike
+    assert "Time-Series View Field Semantics" in hla_spike
     assert "value_of_information_assessment" in decision_output
     assert "causal_design" in decision_output
     assert "numeric predictive" in decision_output

@@ -94,6 +94,31 @@ SOURCE_EXTRACTION_READINESS = (
     "not-ready",
 )
 
+FEATURE_FAMILIES = (
+    "governance_practice",
+    "remuneration_logic",
+    "financial_development",
+    "disclosure_style",
+    "reporting_change",
+    "capital_markets_signal",
+    "people_signal_aux",
+)
+
+FEATURE_VALUE_TYPES = (
+    "boolean",
+    "categorical",
+    "numeric",
+    "text",
+    "date",
+)
+
+FEATURE_EXTRACTION_METHODS = (
+    "exact_field",
+    "rule_based_parse",
+    "manual_coding",
+    "fixture",
+)
+
 LENS_KEYS = (
     "investment",
     "workplace",
@@ -139,5 +164,7 @@ FUTURE_HLA_PUBLICATION_KEYS = (
     "aligned_equity_scorecard",
     "aligned_equity_research_state",
     "aligned_equity_source_freshness",
+    "aligned_equity_feature_record",
+    "aligned_equity_time_series_view",
     "aligned_equity_decision_memo",
 )

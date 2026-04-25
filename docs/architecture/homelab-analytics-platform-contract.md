@@ -29,6 +29,8 @@ This lets homelab-analytics validate the repository as an external source withou
 - `aligned_equity_scorecard`
 - `aligned_equity_research_state`
 - `aligned_equity_source_freshness`
+- `aligned_equity_feature_record`
+- `aligned_equity_time_series_view`
 - `aligned_equity_decision_memo`
 
 These keys are reserved for future HLA-backed publications. They must not be used for unrelated outputs.
