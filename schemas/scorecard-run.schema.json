@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aligned-equity.local/schemas/scorecard-run.schema.json",
+  "title": "Aligned Equity Scorecard Run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "scorecard_run_id",
+    "company_id",
+    "analysis_date",
+    "dimension_assessments",
+    "material_evidence_ids",
+    "material_feature_ids",
+    "time_series_ids",
+    "source_ids",
+    "confidence_summary",
+    "comparability_summary",
+    "source_freshness_summary",
+    "scorecard_notes"
+  ],
+  "properties": {
+    "scorecard_run_id": { "type": "string", "minLength": 1 },
+    "company_id": { "type": "string", "minLength": 1 },
+    "analysis_date": { "type": "string", "format": "date" },
+    "dimension_assessments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "dimension",
+          "assessment",
+          "rationale",
+          "evidence_ids",
+          "feature_ids",
+          "time_series_ids",
+          "confidence",
+          "comparability_notes"
+        ],
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "governance and accountability",
+              "remuneration and incentive alignment",
+              "management-system quality",
+              "candor and reporting quality",
+              "workforce continuity and organizational stability",
+              "adaptability and response quality",
+              "conduct and reliability",
+              "evidence confidence"
+            ]
+          },
+          "assessment": {
+            "type": "string",
+            "enum": [
+              "strong_negative",
+              "negative",
+              "neutral",
+              "positive",
+              "strong_positive",
+              "insufficient_evidence"
+            ]
+          },
+          "rationale": { "type": "string", "minLength": 1 },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "feature_ids": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "time_series_ids": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "comparability_notes": { "type": "string", "minLength": 1 }
+        },
+        "anyOf": [
+          { "required": ["evidence_ids"], "properties": { "evidence_ids": { "minItems": 1 } } },
+          { "required": ["feature_ids"], "properties": { "feature_ids": { "minItems": 1 } } },
+          { "required": ["time_series_ids"], "properties": { "time_series_ids": { "minItems": 1 } } }
+        ]
+      }
+    },
+    "material_evidence_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "material_feature_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "time_series_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "source_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "confidence_summary": { "type": "string", "minLength": 1 },
+    "comparability_summary": { "type": "string", "minLength": 1 },
+    "source_freshness_summary": { "type": "string", "minLength": 1 },
+    "scorecard_notes": { "type": "string", "minLength": 1 }
+  },
+  "anyOf": [
+    { "required": ["material_evidence_ids"], "properties": { "material_evidence_ids": { "minItems": 1 } } },
+    { "required": ["material_feature_ids"], "properties": { "material_feature_ids": { "minItems": 1 } } },
+    { "required": ["time_series_ids"], "properties": { "time_series_ids": { "minItems": 1 } } }
+  ]
+}

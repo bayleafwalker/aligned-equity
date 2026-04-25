@@ -15,6 +15,8 @@ from aligned_equity.contracts import (
     FEATURE_VALUE_TYPES,
     LENS_KEYS,
     RESEARCH_STATES,
+    SCORECARD_ASSESSMENTS,
+    SCORECARD_DIMENSIONS,
     SOURCE_EXTRACTION_READINESS,
     SOURCE_FRESHNESS_STATUSES,
     SOURCE_RETRIEVAL_METHODS,
@@ -267,6 +269,45 @@ def test_decision_output_schema_rejects_missing_evidence_links() -> None:
         jsonschema.validate(payload, schema)
 
 
+def test_scorecard_run_schema_accepts_required_contract() -> None:
+    schema = _schema("scorecard-run.schema.json")
+    jsonschema.validate(_scorecard_run_payload(), schema)
+
+
+@pytest.mark.parametrize("dimension", SCORECARD_DIMENSIONS)
+def test_scorecard_run_schema_accepts_dimensions(dimension: str) -> None:
+    schema = _schema("scorecard-run.schema.json")
+    payload = _scorecard_run_payload()
+    payload["dimension_assessments"][0]["dimension"] = dimension
+    jsonschema.validate(payload, schema)
+
+
+@pytest.mark.parametrize("assessment", SCORECARD_ASSESSMENTS)
+def test_scorecard_run_schema_accepts_assessments(assessment: str) -> None:
+    schema = _schema("scorecard-run.schema.json")
+    payload = _scorecard_run_payload()
+    payload["dimension_assessments"][0]["assessment"] = assessment
+    jsonschema.validate(payload, schema)
+
+
+def test_scorecard_run_schema_rejects_empty_material_links() -> None:
+    schema = _schema("scorecard-run.schema.json")
+    payload = _scorecard_run_payload()
+    payload["material_evidence_ids"] = []
+    payload["material_feature_ids"] = []
+    payload["time_series_ids"] = []
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
+def test_scorecard_run_schema_rejects_lens_fields() -> None:
+    schema = _schema("scorecard-run.schema.json")
+    payload = _scorecard_run_payload()
+    payload["lens_key"] = "investment"
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
 def _schema(name: str) -> dict[str, object]:
     return json.loads((REPO_ROOT / "schemas" / name).read_text(encoding="utf-8"))
 
@@ -404,4 +445,32 @@ def _decision_output_payload() -> dict[str, Any]:
         "value_of_information_assessment": "more_research_unlikely_to_change_action",
         "value_of_information_note": "More research is unlikely to change action before the next filing.",
         "causal_claim": {"claim_type": "decision_relevance"},
+    }
+
+
+def _scorecard_run_payload() -> dict[str, Any]:
+    return {
+        "scorecard_run_id": "scorecard-1",
+        "company_id": "example-company",
+        "analysis_date": "2026-04-25",
+        "dimension_assessments": [
+            {
+                "dimension": "governance and accountability",
+                "assessment": "neutral",
+                "rationale": "Primary evidence and feature lineage support a neutral assessment.",
+                "evidence_ids": ["evidence-1"],
+                "feature_ids": ["feature-1"],
+                "time_series_ids": ["series-1"],
+                "confidence": "medium",
+                "comparability_notes": "Same-firm comparison is partial.",
+            }
+        ],
+        "material_evidence_ids": ["evidence-1"],
+        "material_feature_ids": ["feature-1"],
+        "time_series_ids": ["series-1"],
+        "source_ids": ["source-1"],
+        "confidence_summary": "Source confidence is medium.",
+        "comparability_summary": "Same-firm comparison is partial.",
+        "source_freshness_summary": "Source freshness is current.",
+        "scorecard_notes": "Fixture scorecard run.",
     }

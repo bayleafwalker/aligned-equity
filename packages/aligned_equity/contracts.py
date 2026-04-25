@@ -152,6 +152,17 @@ SCORECARD_ASSESSMENTS = (
     "insufficient_evidence",
 )
 
+SCORECARD_DIMENSIONS = (
+    "governance and accountability",
+    "remuneration and incentive alignment",
+    "management-system quality",
+    "candor and reporting quality",
+    "workforce continuity and organizational stability",
+    "adaptability and response quality",
+    "conduct and reliability",
+    "evidence confidence",
+)
+
 CAUSAL_CLAIM_TYPES = (
     "association",
     "warning_signal",

@@ -22,6 +22,8 @@ from aligned_equity.contracts import (
     RESEARCH_STATES,
     RESTATEMENT_STATUS_VALUES,
     SCHEMA_DIR,
+    SCORECARD_ASSESSMENTS,
+    SCORECARD_DIMENSIONS,
     SOURCE_EXTRACTION_READINESS,
     SOURCE_FAMILIES,
     SOURCE_FRESHNESS_STATUSES,
@@ -62,6 +64,7 @@ REQUIRED_DOCS = (
     "docs/specifications/time-series-view-contract.md",
     "docs/specifications/reporting-style-change-detection.md",
     "docs/specifications/remuneration-logic-extraction.md",
+    "docs/specifications/scorecard-run-spec.md",
     "docs/specifications/lens-scorecard-spec.md",
     "docs/specifications/decision-output-contract.md",
     "docs/specifications/hla-publication-contract-spike.md",
@@ -269,6 +272,34 @@ def _validate_schemas(repo_root: Path) -> list[str]:
         ),
         ("lens.schema.json", {"lens_key": LENS_KEYS[0]}),
         ("research-state.schema.json", {"research_state": RESEARCH_STATES[0]}),
+        (
+            "scorecard-run.schema.json",
+            {
+                "scorecard_run_id": "scorecard-1",
+                "company_id": "example-company",
+                "analysis_date": "2026-04-25",
+                "dimension_assessments": [
+                    {
+                        "dimension": SCORECARD_DIMENSIONS[0],
+                        "assessment": SCORECARD_ASSESSMENTS[2],
+                        "rationale": "Primary evidence and feature lineage support a neutral assessment.",
+                        "evidence_ids": ["evidence-1"],
+                        "feature_ids": ["feature-1"],
+                        "time_series_ids": ["series-1"],
+                        "confidence": CONFIDENCE_LEVELS[1],
+                        "comparability_notes": "Same-firm comparison is partial.",
+                    }
+                ],
+                "material_evidence_ids": ["evidence-1"],
+                "material_feature_ids": ["feature-1"],
+                "time_series_ids": ["series-1"],
+                "source_ids": ["source-1"],
+                "confidence_summary": "Source confidence is medium.",
+                "comparability_summary": "Same-firm comparison is partial.",
+                "source_freshness_summary": "Source freshness is current.",
+                "scorecard_notes": "Smoke-test scorecard payload.",
+            },
+        ),
         (
             "decision-output.schema.json",
             {

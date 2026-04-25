@@ -72,6 +72,9 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
     remuneration_logic = (
         REPO_ROOT / "docs/specifications/remuneration-logic-extraction.md"
     ).read_text(encoding="utf-8")
+    scorecard_run = (
+        REPO_ROOT / "docs/specifications/scorecard-run-spec.md"
+    ).read_text(encoding="utf-8")
     decision_output = (
         REPO_ROOT / "docs/specifications/decision-output-contract.md"
     ).read_text(encoding="utf-8")
@@ -162,6 +165,15 @@ def test_phase_0_specs_capture_required_contract_fields() -> None:
         assert field in remuneration_logic
     assert "Remuneration-logic features are not scorecard assessments" in remuneration_logic
     assert "People-platform, media, and analyst sources are out of scope" in remuneration_logic
+    for field in (
+        "scorecard_run_id",
+        "dimension_assessments",
+        "material_feature_ids",
+        "source_freshness_summary",
+    ):
+        assert field in scorecard_run
+    assert "Scorecard runs do not extract feature values" in scorecard_run
+    assert "Scorecard runs do not contain lens weights" in scorecard_run
     assert "Aligned Equity does not import HLA" in hla_spike
     assert "aligned_equity_feature_record" in hla_spike
     assert "aligned_equity_time_series_view" in hla_spike
