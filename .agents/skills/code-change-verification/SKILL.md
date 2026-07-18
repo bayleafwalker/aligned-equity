@@ -1,20 +1,37 @@
 ---
 name: code-change-verification
-description: Use after repo-tracked code or docs change and local verification must be selected, run, or reported before review or handoff.
+description: Use after repo-tracked code or docs changes to select, run, and report verification before review, handoff, or PR prep.
 ---
 
 ## Goal
 
-Choose the smallest useful verification path, run it, and report exact results.
+Map changed surfaces to the smallest useful verification commands first, then run broader gates only when the manifest, dispatch packet, or PR path requires them.
+
+## Inputs
+
+- Changed files or diff.
+- The dispatch packet, manifest verification block, and repo overlay.
+- Relevant local test, lint, typecheck, docs, contract, Docker, or Helm targets.
+- Whether the work is headed to review, PR, deployment, or another dispatched action.
 
 ## Steps
 
-1. Map changed files to checks.
-2. Run targeted checks first.
-3. Run `make verify-fast` before PR, push, or broad handoff.
-4. Report commands, pass/fail result, and skipped checks.
+1. Classify changed surfaces using the manifest's command families and overlay rules.
+2. Prefer targeted checks from the action packet. Fall back to project commands, then action-class commands.
+	For Python tests, use the focused project target with fail-fast, concise output where supported, for example: `pytest <targeted-tests> -x --tb=short`.
+3. Run commands foreground and blocking; wait for their exit status before proceeding.
+4. Record exact commands, results, and any skipped checks.
+5. Emit or hand off verification data for dispatcher hooks when the action contract requires it.
 
-## Do not
+## Output Contract
 
-- Do not imply a check passed if it was not run.
-- Do not skip `make verify-fast` before a CI-triggering push.
+- Verification summary with exact commands.
+- Pass/fail status for each command.
+- Remaining verification debt or blockers.
+
+## Do Not
+
+- Do not imply a command passed if it was not run.
+- Do not replace repo-specific checks with generic reassurance.
+- Do not background or detach verification commands when their result gates the next step.
+- Do not run destructive or cluster-mutating verification unless the repo overlay explicitly allows it.

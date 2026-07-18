@@ -1,8 +1,11 @@
 # Agent Skills
 
-`.agents/skills/` is the repo-local source for workflow skills. Claude sessions may expose
-these through `.claude/skills/` symlinks; Codex sessions can use the same files as local
-workflow documentation.
+Canonical shared skills are maintained in
+`/projects/dev/agentops/templates/dispatch/skills/` and synchronized into
+`.agents/skills/` from the repository dispatch manifest. Repository-specific
+rules belong in `.agents/overlays/`. Claude sessions may expose synchronized
+skills through `.claude/skills/` symlinks; Codex sessions can use the same files
+as local workflow documentation.
 
 Use `docs/runbooks/project-working-practices.md` to choose the right loop before opening a
 skill.
@@ -15,3 +18,8 @@ skill.
 - `code-change-verification`: choose and report verification for a change.
 - `domain-impact-scan`: map source/evidence/lens/HLA impact for new scope.
 - `pr-handoff-summary`: write a compact reviewer or handoff summary.
+- `backlog-refinement`: reconcile accepted scope into a non-duplicated backlog.
+- `sprint-maintenance`: inspect sprint health before an approved cleanup.
+- `task-pickup`: select and claim the next executable item from live state.
+- `plan-review`: review a plan's decisions, verification, and backlog mapping.
+- `sprint-close`: complete close-out with an explicit capability-boundary decision.
