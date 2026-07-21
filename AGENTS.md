@@ -38,3 +38,7 @@
 - `make validate`
 - `make hla-contract-check`
 - `make verify-fast`
+
+<!-- agentops-project-pointer:start -->
+See `.agents/project.generated.md` for cross-repo project context (agentops-managed; do not hand-edit).
+<!-- agentops-project-pointer:end -->
