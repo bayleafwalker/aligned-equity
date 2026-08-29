@@ -3,7 +3,12 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from aligned_equity.validation import REQUIRED_DOCS, REQUIRED_ROOT_FILES, validate_repository
+from aligned_equity.validation import (
+    ENVRC_REPO_ROOT_VARS,
+    REQUIRED_DOCS,
+    REQUIRED_ROOT_FILES,
+    validate_repository,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -36,8 +41,13 @@ def test_research_notes_are_not_byte_duplicate() -> None:
 
 def test_envrc_uses_repo_local_state() -> None:
     text = (REPO_ROOT / ".envrc").read_text(encoding="utf-8")
-    assert 'export SPRINTCTL_DB="${PWD}/.sprintctl/sprintctl.db"' in text
-    assert 'export KCTL_DB="${PWD}/.kctl/kctl.db"' in text
+    assert any(
+        f'export SPRINTCTL_DB="{var}/.sprintctl/sprintctl.db"' in text
+        for var in ENVRC_REPO_ROOT_VARS
+    )
+    assert any(
+        f'export KCTL_DB="{var}/.kctl/kctl.db"' in text for var in ENVRC_REPO_ROOT_VARS
+    )
     assert 'export KCTL_PROJECT="aligned-equity"' in text
 
 

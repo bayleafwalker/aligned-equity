@@ -14,8 +14,8 @@
 
 - Load `.envrc` before using `sprintctl` or `kctl`.
 - Use repo-local sprint and knowledge state:
-  - `SPRINTCTL_DB=${PWD}/.sprintctl/sprintctl.db`
-  - `KCTL_DB=${PWD}/.kctl/kctl.db`
+  - `SPRINTCTL_DB=${repo_root}/.sprintctl/sprintctl.db`
+  - `KCTL_DB=${repo_root}/.kctl/kctl.db`
   - `KCTL_PROJECT=aligned-equity`
 - Mode guides live under `docs/agents/`.
 - Workflow skills live under `.agents/skills/`; `.claude/skills/` may expose symlinks for Claude sessions.

@@ -18,8 +18,8 @@
 ## Local sprint and knowledge workflow
 
 - Load the repo-local environment before using sprintctl or kctl:
-  `SPRINTCTL_DB=${PWD}/.sprintctl/sprintctl.db`,
-  `KCTL_DB=${PWD}/.kctl/kctl.db`, and `KCTL_PROJECT=aligned-equity`.
+  `SPRINTCTL_DB=${repo_root}/.sprintctl/sprintctl.db`,
+  `KCTL_DB=${repo_root}/.kctl/kctl.db`, and `KCTL_PROJECT=aligned-equity`.
 - Prefer `tools/workflow.sh` for `sprint-resume`, `claim-recover`,
   `claim-heartbeat`, `item-verify-auth`, `snapshot-refresh`, and
   `knowledge-publish`. It enforces the local database paths and records claim

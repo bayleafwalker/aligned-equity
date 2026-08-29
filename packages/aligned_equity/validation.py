@@ -130,14 +130,28 @@ def _validate_research_deduplication(repo_root: Path) -> list[str]:
     return errors
 
 
+ENVRC_REPO_ROOT_VARS = ("${PWD}", "${repo_root}")
+
+
 def _validate_envrc(repo_root: Path) -> list[str]:
+    """Check that .envrc keeps sprint and knowledge state repo-local.
+
+    The repo-root expansion may be either ``${PWD}`` or the ``${repo_root}``
+    variable that .envrc derives from ``DIRENV_DIR``; the contract is the
+    repo-local location, not the spelling of the expansion.
+    """
     text = (repo_root / ".envrc").read_text(encoding="utf-8")
-    expected = (
-        'export SPRINTCTL_DB="${PWD}/.sprintctl/sprintctl.db"',
-        'export KCTL_DB="${PWD}/.kctl/kctl.db"',
-        'export KCTL_PROJECT="aligned-equity"',
-    )
-    return [f".envrc missing {value}" for value in expected if value not in text]
+    errors = []
+    for name, relative in (
+        ("SPRINTCTL_DB", ".sprintctl/sprintctl.db"),
+        ("KCTL_DB", ".kctl/kctl.db"),
+    ):
+        accepted = [f'export {name}="{var}/{relative}"' for var in ENVRC_REPO_ROOT_VARS]
+        if not any(value in text for value in accepted):
+            errors.append(f".envrc missing repo-local {name} export for {relative}")
+    if 'export KCTL_PROJECT="aligned-equity"' not in text:
+        errors.append('.envrc missing export KCTL_PROJECT="aligned-equity"')
+    return errors
 
 
 def _validate_registry_manifest(repo_root: Path) -> list[str]:
