@@ -21,6 +21,15 @@ Deliverables:
 - Homelab-analytics publication-contract spike.
 - Success criteria for six-month decision impact review.
 
+Initial specification artifacts:
+
+- `docs/specifications/finland-source-inventory.md`
+- `docs/specifications/evidence-record-spec.md`
+- `docs/specifications/lens-scorecard-spec.md`
+- `docs/specifications/decision-output-contract.md`
+- `docs/specifications/hla-publication-contract-spike.md`
+- `docs/product/six-month-success-criteria.md`
+
 ## Later phases
 
 - Phase 1: ingestion and normalization for governance, remuneration, ESEF, PDMR, earnings-call, and event evidence.

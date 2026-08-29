@@ -8,7 +8,29 @@ from typing import Any
 
 import jsonschema
 
-from aligned_equity.contracts import EVIDENCE_CLASSES, LENS_KEYS, RESEARCH_STATES, SCHEMA_DIR
+from aligned_equity.contracts import (
+    ACCOUNTING_SCOPE_VALUES,
+    COMPARABILITY_LEVELS,
+    CONFIDENCE_LEVELS,
+    DECISION_CONTEXTS,
+    EVIDENCE_CLASSES,
+    FEATURE_EXTRACTION_METHODS,
+    FEATURE_FAMILIES,
+    FEATURE_VALUE_TYPES,
+    LENS_KEYS,
+    PERIOD_ALIGNMENT_VALUES,
+    RESEARCH_STATES,
+    RESTATEMENT_STATUS_VALUES,
+    SCHEMA_DIR,
+    SCORECARD_ASSESSMENTS,
+    SCORECARD_DIMENSIONS,
+    SOURCE_EXTRACTION_READINESS,
+    SOURCE_FAMILIES,
+    SOURCE_FRESHNESS_STATUSES,
+    SOURCE_RETRIEVAL_METHODS,
+    SOURCE_UPDATE_FREQUENCIES,
+    VALUE_OF_INFORMATION_ASSESSMENTS,
+)
 
 REQUIRED_ROOT_FILES = (
     "README.md",
@@ -29,9 +51,28 @@ REQUIRED_DOCS = (
     "docs/soft-leadership-factors.md",
     "docs/research-notes.md",
     "docs/product/vision.md",
+    "docs/product/six-month-success-criteria.md",
     "docs/architecture/evidence-model.md",
     "docs/architecture/lens-model.md",
     "docs/architecture/homelab-analytics-platform-contract.md",
+    "docs/specifications/finland-source-inventory.md",
+    "docs/specifications/phase-1-source-fixture-boundaries.md",
+    "docs/specifications/source-ledger-record-spec.md",
+    "docs/specifications/entity-identifier-normalization.md",
+    "docs/specifications/evidence-record-spec.md",
+    "docs/specifications/feature-record-spec.md",
+    "docs/specifications/time-series-view-contract.md",
+    "docs/specifications/reporting-style-change-detection.md",
+    "docs/specifications/remuneration-logic-extraction.md",
+    "docs/specifications/scorecard-run-spec.md",
+    "docs/specifications/lens-output-contract.md",
+    "docs/specifications/lens-scorecard-spec.md",
+    "docs/specifications/decision-output-contract.md",
+    "docs/specifications/hla-publication-contract-spike.md",
+    "docs/agents/planning.md",
+    "docs/agents/implementation.md",
+    "docs/agents/review.md",
+    "docs/agents/release-ops.md",
     "docs/plans/phase-0-roadmap.md",
     "docs/runbooks/project-working-practices.md",
     "docs/runbooks/sprint-and-knowledge-operations.md",
@@ -89,14 +130,28 @@ def _validate_research_deduplication(repo_root: Path) -> list[str]:
     return errors
 
 
+ENVRC_REPO_ROOT_VARS = ("${PWD}", "${repo_root}")
+
+
 def _validate_envrc(repo_root: Path) -> list[str]:
+    """Check that .envrc keeps sprint and knowledge state repo-local.
+
+    The repo-root expansion may be either ``${PWD}`` or the ``${repo_root}``
+    variable that .envrc derives from ``DIRENV_DIR``; the contract is the
+    repo-local location, not the spelling of the expansion.
+    """
     text = (repo_root / ".envrc").read_text(encoding="utf-8")
-    expected = (
-        'export SPRINTCTL_DB="${PWD}/.sprintctl/sprintctl.db"',
-        'export KCTL_DB="${PWD}/.kctl/kctl.db"',
-        'export KCTL_PROJECT="aligned-equity"',
-    )
-    return [f".envrc missing {value}" for value in expected if value not in text]
+    errors = []
+    for name, relative in (
+        ("SPRINTCTL_DB", ".sprintctl/sprintctl.db"),
+        ("KCTL_DB", ".kctl/kctl.db"),
+    ):
+        accepted = [f'export {name}="{var}/{relative}"' for var in ENVRC_REPO_ROOT_VARS]
+        if not any(value in text for value in accepted):
+            errors.append(f".envrc missing repo-local {name} export for {relative}")
+    if 'export KCTL_PROJECT="aligned-equity"' not in text:
+        errors.append('.envrc missing export KCTL_PROJECT="aligned-equity"')
+    return errors
 
 
 def _validate_registry_manifest(repo_root: Path) -> list[str]:
@@ -118,8 +173,192 @@ def _validate_registry_manifest(repo_root: Path) -> list[str]:
 def _validate_schemas(repo_root: Path) -> list[str]:
     examples = (
         ("evidence-class.schema.json", {"evidence_class": EVIDENCE_CLASSES[0]}),
+        (
+            "entity-identifier-record.schema.json",
+            {
+                "company_id": "example-company",
+                "display_name": "Example Oyj",
+                "domicile_country": "FI",
+                "identifier_confidence": CONFIDENCE_LEVELS[0],
+                "company_identifiers": {"business_id": "1234567-8"},
+                "security_identifiers": [
+                    {
+                        "security_id": "example-share",
+                        "isin": "FI0000000000",
+                        "ticker": "EXMPL",
+                        "market": "Nasdaq Helsinki",
+                        "mic": "XHEL",
+                        "currency": "EUR",
+                        "listing_status": "listed",
+                    }
+                ],
+                "source_aliases": [
+                    {
+                        "source_family": SOURCE_FAMILIES[0],
+                        "source_value": "Example Oyj",
+                        "source_id": "source-1",
+                    }
+                ],
+                "normalization_notes": "Manual smoke-test identity mapping.",
+            },
+        ),
+        (
+            "source-ledger-record.schema.json",
+            {
+                "source_id": "source-1",
+                "source_family": SOURCE_FAMILIES[0],
+                "source_name": "Example annual report",
+                "source_locator": "https://example.test/report",
+                "publisher": "Example Oyj",
+                "retrieval_method": SOURCE_RETRIEVAL_METHODS[0],
+                "collected_at": "2026-04-24T12:00:00Z",
+                "observed_at": "2026-04-24",
+                "freshness_as_of": "2026-04-24",
+                "expected_update_frequency": SOURCE_UPDATE_FREQUENCIES[0],
+                "freshness_status": SOURCE_FRESHNESS_STATUSES[0],
+                "language": "en",
+                "source_confidence": CONFIDENCE_LEVELS[0],
+                "extraction_readiness": SOURCE_EXTRACTION_READINESS[0],
+                "same_firm_comparable": COMPARABILITY_LEVELS[1],
+                "cross_firm_comparable": COMPARABILITY_LEVELS[2],
+                "comparability_notes": "Cross-firm comparison is not used.",
+                "bias_flags": [],
+            },
+        ),
+        (
+            "evidence-record.schema.json",
+            {
+                "evidence_id": "evidence-1",
+                "company_id": "example-company",
+                "source_id": "source-1",
+                "source_family": SOURCE_FAMILIES[0],
+                "evidence_class": EVIDENCE_CLASSES[0],
+                "document_type": "annual report",
+                "observed_at": "2026-04-24",
+                "collected_at": "2026-04-24T12:00:00Z",
+                "source_locator": "https://example.test/report",
+                "language": "en",
+                "extraction_method": "manual",
+                "source_confidence": CONFIDENCE_LEVELS[0],
+                "extraction_confidence": CONFIDENCE_LEVELS[0],
+                "interpretation_confidence": CONFIDENCE_LEVELS[1],
+                "confidence_notes": "Manual smoke-test payload.",
+                "same_firm_comparable": COMPARABILITY_LEVELS[1],
+                "cross_firm_comparable": COMPARABILITY_LEVELS[2],
+                "period_alignment": PERIOD_ALIGNMENT_VALUES[2],
+                "accounting_scope": ACCOUNTING_SCOPE_VALUES[4],
+                "restatement_status": RESTATEMENT_STATUS_VALUES[4],
+                "comparability_notes": "Cross-firm comparison is not used.",
+                "bias_flags": [],
+                "legal_or_enforcement_override": False,
+            },
+        ),
+        (
+            "feature-record.schema.json",
+            {
+                "feature_id": "feature-1",
+                "company_id": "example-company",
+                "feature_key": "board_independence_ratio",
+                "feature_family": FEATURE_FAMILIES[0],
+                "feature_value_type": FEATURE_VALUE_TYPES[2],
+                "feature_value": 0.75,
+                "feature_unit": "ratio",
+                "observed_at": "2026-04-24",
+                "period_start": "2025-01-01",
+                "period_end": "2025-12-31",
+                "extracted_at": "2026-04-24T12:30:00Z",
+                "source_evidence_ids": ["evidence-1"],
+                "source_ids": ["source-1"],
+                "extraction_rule_id": "board_independence_ratio",
+                "extraction_rule_version": "1",
+                "extraction_method": FEATURE_EXTRACTION_METHODS[0],
+                "source_confidence": CONFIDENCE_LEVELS[0],
+                "extraction_confidence": CONFIDENCE_LEVELS[0],
+                "interpretation_confidence": CONFIDENCE_LEVELS[1],
+                "confidence_notes": "Manual smoke-test feature payload.",
+                "same_firm_comparable": COMPARABILITY_LEVELS[0],
+                "cross_firm_comparable": COMPARABILITY_LEVELS[1],
+                "period_alignment": PERIOD_ALIGNMENT_VALUES[0],
+                "accounting_scope": ACCOUNTING_SCOPE_VALUES[1],
+                "restatement_status": RESTATEMENT_STATUS_VALUES[0],
+                "comparability_notes": "Same-firm comparison is valid for the fixture period.",
+                "bias_flags": [],
+            },
+        ),
         ("lens.schema.json", {"lens_key": LENS_KEYS[0]}),
+        (
+            "lens-output.schema.json",
+            {
+                "lens_output_id": "lens-output-1",
+                "scorecard_run_id": "scorecard-1",
+                "company_id": "example-company",
+                "analysis_date": "2026-04-25",
+                "lens_key": LENS_KEYS[0],
+                "decision_context": DECISION_CONTEXTS[0],
+                "dimension_emphasis": [SCORECARD_DIMENSIONS[0]],
+                "material_scorecard_dimensions": [SCORECARD_DIMENSIONS[0]],
+                "material_evidence_ids": ["evidence-1"],
+                "material_feature_ids": ["feature-1"],
+                "time_series_ids": ["series-1"],
+                "confidence_summary": "Confidence is medium.",
+                "comparability_summary": "Same-firm comparison is partial.",
+                "lens_rationale": "The lens emphasizes governance for the decision context.",
+                "allowed_output_uses": ["decision_memo"],
+            },
+        ),
         ("research-state.schema.json", {"research_state": RESEARCH_STATES[0]}),
+        (
+            "scorecard-run.schema.json",
+            {
+                "scorecard_run_id": "scorecard-1",
+                "company_id": "example-company",
+                "analysis_date": "2026-04-25",
+                "dimension_assessments": [
+                    {
+                        "dimension": SCORECARD_DIMENSIONS[0],
+                        "assessment": SCORECARD_ASSESSMENTS[2],
+                        "rationale": "Primary evidence and feature lineage support a neutral assessment.",
+                        "evidence_ids": ["evidence-1"],
+                        "feature_ids": ["feature-1"],
+                        "time_series_ids": ["series-1"],
+                        "confidence": CONFIDENCE_LEVELS[1],
+                        "comparability_notes": "Same-firm comparison is partial.",
+                    }
+                ],
+                "material_evidence_ids": ["evidence-1"],
+                "material_feature_ids": ["feature-1"],
+                "time_series_ids": ["series-1"],
+                "source_ids": ["source-1"],
+                "confidence_summary": "Source confidence is medium.",
+                "comparability_summary": "Same-firm comparison is partial.",
+                "source_freshness_summary": "Source freshness is current.",
+                "scorecard_notes": "Smoke-test scorecard payload.",
+            },
+        ),
+        (
+            "decision-output.schema.json",
+            {
+                "company_id": "example-company",
+                "analysis_date": "2026-04-24",
+                "decision_context": DECISION_CONTEXTS[0],
+                "current_research_state": RESEARCH_STATES[2],
+                "material_evidence_ids": ["evidence-1"],
+                "scorecard_dimension_assessments": [
+                    {
+                        "dimension": "governance and accountability",
+                        "assessment": "neutral",
+                        "rationale": "Evidence is relevant to the decision context.",
+                        "evidence_ids": ["evidence-1"],
+                    }
+                ],
+                "confidence_summary": "Source confidence is medium.",
+                "comparability_summary": "Same-firm comparison is partial.",
+                "likely_action_implication": "Preserve watch status.",
+                "value_of_information_assessment": VALUE_OF_INFORMATION_ASSESSMENTS[0],
+                "value_of_information_note": "More primary evidence could change follow-up scope.",
+                "causal_claim": {"claim_type": "decision_relevance"},
+            },
+        ),
     )
     errors: list[str] = []
     for schema_name, payload in examples:

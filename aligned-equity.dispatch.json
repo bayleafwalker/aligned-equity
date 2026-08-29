@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "repo_id": "aligned-equity",
+  "adoption_level": "guidance-only",
+  "routing": {
+    "default_harness": "caller",
+    "default_model_alias": "fast-build",
+    "action_classes": {
+      "plan": { "enabled": false },
+      "build": { "enabled": false },
+      "review": { "enabled": false },
+      "verify": { "enabled": false },
+      "reconcile": { "enabled": false }
+    }
+  },
+  "skills": {
+    "template_root": "/projects/dev/agentops/templates/dispatch/skills",
+    "selected": [
+      "code-change-verification",
+      "backlog-refinement",
+      "sprint-maintenance",
+      "task-pickup",
+      "plan-review",
+      "domain-impact-scan",
+      "item-done",
+      "kctl-extract",
+      "pr-handoff-summary",
+      "sprint-packet",
+      "sprint-resume",
+      "sprint-snapshot",
+      "sprint-close",
+      "capability-receipt"
+    ],
+    "overlays": [".agents/overlays/aligned-equity.dispatch-workflows.md"]
+  },
+  "scope": {
+    "allowed_path_roots": ["apps/", "packages/", "schemas/", "tests/", "docs/", "requirements/", "tools/", ".agents/"],
+    "out_of_scope": [
+      "a runtime dependency on homelab-analytics",
+      "unapproved source-ingestion dependencies",
+      "people-platform signals as core truth",
+      "sparse legal events as a primary scored axis"
+    ]
+  },
+  "verification": {
+    "command_families": ["unit", "lint", "typecheck", "architecture", "full-suite", "docs"],
+    "targeted_first": true,
+    "commands": [
+      "make lint",
+      "make typecheck",
+      "make test",
+      "make validate",
+      "make hla-contract-check",
+      "make verify-fast",
+      "python /projects/dev/agentops/templates/dispatch/scripts/validate_verification_artifacts.py --root ."
+    ]
+  },
+  "hooks": {
+    "level": "none",
+    "publishers": []
+  }
+}

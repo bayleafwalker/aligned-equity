@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aligned-equity.local/schemas/lens-output.schema.json",
+  "title": "Aligned Equity Lens Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lens_output_id",
+    "scorecard_run_id",
+    "company_id",
+    "analysis_date",
+    "lens_key",
+    "decision_context",
+    "dimension_emphasis",
+    "material_scorecard_dimensions",
+    "material_evidence_ids",
+    "material_feature_ids",
+    "time_series_ids",
+    "confidence_summary",
+    "comparability_summary",
+    "lens_rationale",
+    "allowed_output_uses"
+  ],
+  "properties": {
+    "lens_output_id": { "type": "string", "minLength": 1 },
+    "scorecard_run_id": { "type": "string", "minLength": 1 },
+    "company_id": { "type": "string", "minLength": 1 },
+    "analysis_date": { "type": "string", "format": "date" },
+    "lens_key": {
+      "type": "string",
+      "enum": ["investment", "workplace", "product"]
+    },
+    "decision_context": {
+      "type": "string",
+      "enum": ["investment", "workplace", "product"]
+    },
+    "dimension_emphasis": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "governance and accountability",
+          "remuneration and incentive alignment",
+          "management-system quality",
+          "candor and reporting quality",
+          "workforce continuity and organizational stability",
+          "adaptability and response quality",
+          "conduct and reliability",
+          "evidence confidence"
+        ]
+      }
+    },
+    "material_scorecard_dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "governance and accountability",
+          "remuneration and incentive alignment",
+          "management-system quality",
+          "candor and reporting quality",
+          "workforce continuity and organizational stability",
+          "adaptability and response quality",
+          "conduct and reliability",
+          "evidence confidence"
+        ]
+      }
+    },
+    "material_evidence_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "material_feature_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "time_series_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "confidence_summary": { "type": "string", "minLength": 1 },
+    "comparability_summary": { "type": "string", "minLength": 1 },
+    "lens_rationale": { "type": "string", "minLength": 1 },
+    "allowed_output_uses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["decision_memo", "watchlist", "same_firm_report"]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "lens_key": { "const": "investment" } },
+        "required": ["lens_key"]
+      },
+      "then": {
+        "properties": { "decision_context": { "const": "investment" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "lens_key": { "const": "workplace" } },
+        "required": ["lens_key"]
+      },
+      "then": {
+        "properties": { "decision_context": { "const": "workplace" } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "lens_key": { "const": "product" } },
+        "required": ["lens_key"]
+      },
+      "then": {
+        "properties": { "decision_context": { "const": "product" } }
+      }
+    }
+  ],
+  "anyOf": [
+    { "required": ["material_evidence_ids"], "properties": { "material_evidence_ids": { "minItems": 1 } } },
+    { "required": ["material_feature_ids"], "properties": { "material_feature_ids": { "minItems": 1 } } },
+    { "required": ["time_series_ids"], "properties": { "time_series_ids": { "minItems": 1 } } }
+  ]
+}

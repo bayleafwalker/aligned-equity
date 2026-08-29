@@ -1,0 +1,31 @@
+SPRINT: turku-scorecard-bridge  [active]
+Goal:   Establish Phase 3 scorecard, lens-output, same-firm report, and research-state contracts over the longitudinal feature spine.
+ID:     4
+Items:  7 total — 4 done, 0 active, 3 pending, 0 blocked
+
+--- Track: workflow ---
+  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #24  Open Phase 3 scorecard bridge sprint packet  (assignee: -)
+
+--- Track: scorecards ---
+  health: 2 items — 2 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #25  Specify scorecard run and dimension assessment contract  (assignee: -)
+  [done    ] #26  Implement scorecard validation helper  (assignee: -)
+
+--- Track: lenses ---
+  health: 1 items — 1 done (100%), 0 active, 0 pending, 0 blocked (0%)
+  [done    ] #27  Define lens-specific output contract  (assignee: -)
+
+--- Track: reports ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #28  Define same-firm over-time report contract  (assignee: -)
+
+--- Track: states ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #29  Implement research-state transition validation  (assignee: -)
+
+--- Track: platform ---
+  health: 1 items — 0 done (0%), 0 active, 1 pending, 0 blocked (0%)
+  [pending ] #30  Add HLA metadata for scorecard and research-state surfaces  (assignee: -)
+
+Rendered: 2026-04-25T06:04:55Z

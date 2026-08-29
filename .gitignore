@@ -16,6 +16,7 @@ build/
 .local/
 .artifacts/
 .samples/
+.claude/
 .sprintctl/
 .kctl/
 sprint-*.json

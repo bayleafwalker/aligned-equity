@@ -4,6 +4,11 @@ Aligned Equity helps maintain a longitudinal, evidence-backed view of how public
 
 The initial universe is Finland-heavy and source-first. The project should make same-firm change over time easier to see before it tries to produce broad cross-sectional rankings.
 
+Decision-facing outputs should explain the decision or non-decision they affect, the
+evidence and uncertainty behind that view, and whether more research is likely to
+change action. They should not imply causal effects without explicit causal-design
+metadata.
+
 ## Primary users
 
 - Investment research: identify long-term candidates, dislocations, thesis changes, and avoid states.
