@@ -1,7 +1,7 @@
 # Agent Skills
 
 Canonical shared skills are maintained in
-`/projects/dev/agentops/templates/dispatch/skills/` and synchronized into
+`/projects/dev/agentops/skills/` and synchronized into
 `.agents/skills/` from the repository dispatch manifest. Repository-specific
 rules belong in `.agents/overlays/`. Claude sessions may expose synchronized
 skills through `.claude/skills/` symlinks; Codex sessions can use the same files
