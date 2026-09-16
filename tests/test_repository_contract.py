@@ -41,7 +41,9 @@ def test_research_notes_are_not_byte_duplicate() -> None:
 
 def test_envrc_uses_repo_local_state() -> None:
     text = (REPO_ROOT / ".envrc").read_text(encoding="utf-8")
-    assert any(
+    # sprintctl is either served (Vuoro work adapter, no local DB) or uses the
+    # repo-local database; a served backend makes SPRINTCTL_DB dead config.
+    assert "export SPRINTCTL_BACKEND=served" in text or any(
         f'export SPRINTCTL_DB="{var}/.sprintctl/sprintctl.db"' in text
         for var in ENVRC_REPO_ROOT_VARS
     )

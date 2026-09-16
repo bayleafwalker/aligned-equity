@@ -147,6 +147,9 @@ def _validate_envrc(repo_root: Path) -> list[str]:
         ("KCTL_DB", ".kctl/kctl.db"),
     ):
         accepted = [f'export {name}="{var}/{relative}"' for var in ENVRC_REPO_ROOT_VARS]
+        if name == "SPRINTCTL_DB" and "export SPRINTCTL_BACKEND=served" in text:
+            # Served sprintctl (Vuoro work adapter) has no local database.
+            continue
         if not any(value in text for value in accepted):
             errors.append(f".envrc missing repo-local {name} export for {relative}")
     if 'export KCTL_PROJECT="aligned-equity"' not in text:
