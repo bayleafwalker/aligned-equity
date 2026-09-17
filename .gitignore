@@ -27,3 +27,8 @@ docs/knowledge/*
 !docs/knowledge/knowledge-base.md
 docs/sessions/*
 .envrc.local
+
+# auditctl local event database and NDJSON audit shards (auditctl 0.1.8, hook output
+# from nearest-marker rooting; not committed in this repo)
+.auditctl/
+_artifacts/*/audit*/
