@@ -14,7 +14,7 @@
     }
   },
   "skills": {
-    "template_root": "/projects/dev/agentops/templates/dispatch/skills",
+    "template_root": "/projects/dev/agentops/skills",
     "selected": [
       "code-change-verification",
       "backlog-refinement",
@@ -28,8 +28,7 @@
       "sprint-packet",
       "sprint-resume",
       "sprint-snapshot",
-      "sprint-close",
-      "capability-receipt"
+      "sprint-close"
     ],
     "overlays": [".agents/overlays/aligned-equity.dispatch-workflows.md"]
   },
@@ -52,7 +51,7 @@
       "make validate",
       "make hla-contract-check",
       "make verify-fast",
-      "python /projects/dev/agentops/templates/dispatch/scripts/validate_verification_artifacts.py --root ."
+      "python /projects/dev/agentops/scripts/validate_verification_artifacts.py --root ."
     ]
   },
   "hooks": {
