@@ -13,18 +13,103 @@ from aligned_equity.source_ledger import (
 )
 from aligned_equity.validation import SCHEMA_DIR
 
+_DECISION_PARAMETER_FIELDS = (
+    "analysis_date",
+    "decision_context",
+    "current_research_state",
+    "dimension",
+    "assessment",
+    "rationale",
+    "likely_action_implication",
+    "value_of_information_assessment",
+    "value_of_information_note",
+)
+_CASE_STRING_FIELDS = (
+    "case_id",
+    "status",
+    "predeclared_at",
+    "predeclared_question",
+    "scope",
+    "decision_impact_status",
+)
+
+
+def _validate_case_shape(bundle: Any) -> list[str]:
+    """Guard every field consumed by the joiner and Markdown renderer."""
+
+    if not isinstance(bundle, dict):
+        return ["research case bundle must be an object"]
+    errors: list[str] = []
+    case = bundle.get("case")
+    if not isinstance(case, dict):
+        return ["case must be an object"]
+    for field in _CASE_STRING_FIELDS:
+        if not isinstance(case.get(field), str) or not case[field].strip():
+            errors.append(f"case.{field} must be a non-empty string")
+    observations = case.get("observations")
+    if not isinstance(observations, list):
+        errors.append("case.observations must be an array")
+    else:
+        for index, observation in enumerate(observations):
+            if not isinstance(observation, dict):
+                errors.append(f"case.observations[{index}] must be an object")
+                continue
+            for field in ("evidence_id", "source_section", "statement"):
+                if not isinstance(observation.get(field), str) or not observation[field].strip():
+                    errors.append(
+                        f"case.observations[{index}].{field} must be a non-empty string"
+                    )
+    gaps = case.get("gaps")
+    if not isinstance(gaps, list) or any(not isinstance(gap, str) for gap in gaps):
+        errors.append("case.gaps must be an array of strings")
+    if "data_attribution" in case and not isinstance(case["data_attribution"], str):
+        errors.append("case.data_attribution must be a string when present")
+
+    parameters = case.get("decision_parameters")
+    if not isinstance(parameters, dict):
+        errors.append("case.decision_parameters must be an object")
+    else:
+        missing = [field for field in _DECISION_PARAMETER_FIELDS if field not in parameters]
+        extras = sorted(set(parameters) - set(_DECISION_PARAMETER_FIELDS) - {"causal_claim"})
+        if missing:
+            errors.append(f"case.decision_parameters missing fields: {', '.join(missing)}")
+        if extras:
+            errors.append(f"case.decision_parameters has unsupported fields: {', '.join(extras)}")
+        for field in _DECISION_PARAMETER_FIELDS:
+            if field in parameters and not isinstance(parameters[field], str):
+                errors.append(f"case.decision_parameters.{field} must be a string")
+        if "causal_claim" in parameters and not isinstance(parameters["causal_claim"], dict):
+            errors.append("case.decision_parameters.causal_claim must be an object")
+
+    if not isinstance(bundle.get("company"), dict):
+        errors.append("company must be an object")
+    for field in ("source_ledger_records", "evidence_records", "feature_records"):
+        records = bundle.get(field)
+        if not isinstance(records, list):
+            errors.append(f"{field} must be an array")
+            continue
+        if field != "feature_records" and not records:
+            errors.append(f"case requires at least one {field.replace('_records', '').replace('_', '-')} record")
+        for index, record in enumerate(records):
+            if not isinstance(record, dict):
+                errors.append(f"{field}[{index}] must be an object")
+    return errors
+
 
 def build_research_case_packet(
     bundle: dict[str, Any], schema_dir: Path = SCHEMA_DIR
 ) -> tuple[dict[str, Any], list[str]]:
     """Validate and join a bounded research case using the existing contracts."""
 
+    errors = _validate_case_shape(bundle)
+    if errors:
+        return {}, errors
     case = bundle.get("case", {})
     company = bundle.get("company", {})
     sources = bundle.get("source_ledger_records", [])
     evidence = bundle.get("evidence_records", [])
     features = bundle.get("feature_records", [])
-    errors: list[str] = []
+    errors = []
 
     if not case.get("case_id") or not case.get("predeclared_question"):
         errors.append("case requires case_id and predeclared_question")

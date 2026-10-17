@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+import pytest
 from aligned_equity.contracts import SCHEMA_DIR
 from aligned_equity.research_case import (
     build_research_case_packet,
@@ -74,3 +75,62 @@ def test_research_case_rejects_orphaned_feature_evidence() -> None:
 
     assert packet == {}
     assert any("references unknown evidence" in error for error in errors)
+
+
+@pytest.mark.parametrize(
+    ("mutate", "message"),
+    [
+        (lambda bundle: bundle.update(case=None), "case must be an object"),
+        (lambda bundle: bundle.update(case=[]), "case must be an object"),
+        (lambda bundle: bundle["case"].pop("status"), "case.status must be a non-empty string"),
+        (lambda bundle: bundle["case"].update(observations=[None]), "observations[0] must be an object"),
+        (lambda bundle: bundle["case"].update(gaps=[{"claim": "x"}]), "case.gaps must be an array of strings"),
+        (lambda bundle: bundle["case"].update(decision_parameters=[]), "decision_parameters must be an object"),
+        (
+            lambda bundle: bundle["case"]["decision_parameters"].update(unexpected="x"),
+            "decision_parameters has unsupported fields",
+        ),
+        (
+            lambda bundle: bundle["case"]["decision_parameters"].update(analysis_date=None),
+            "decision_parameters.analysis_date must be a string",
+        ),
+    ],
+)
+def test_research_case_rejects_malformed_case_contract_before_rendering(
+    mutate: Any, message: str
+) -> None:
+    bundle = copy.deepcopy(_case_bundle())
+    mutate(bundle)
+
+    packet, errors = build_research_case_packet(bundle, SCHEMA_DIR)
+
+    assert packet == {}
+    assert any(message in error for error in errors)
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "message"),
+    [
+        ("source_ledger_records", ["not-an-object"], "source_ledger_records[0] must be an object"),
+        ("evidence_records", [None], "evidence_records[0] must be an object"),
+        ("feature_records", [7], "feature_records[0] must be an object"),
+    ],
+)
+def test_research_case_rejects_scalar_records_before_schema_validation(
+    field: str, value: list[Any], message: str
+) -> None:
+    bundle = copy.deepcopy(_case_bundle())
+    bundle[field] = value
+
+    packet, errors = build_research_case_packet(bundle, SCHEMA_DIR)
+
+    assert packet == {}
+    assert message in errors
+
+
+@pytest.mark.parametrize("value", [None, [], "not-an-object"])
+def test_research_case_rejects_non_object_bundle(value: Any) -> None:
+    packet, errors = build_research_case_packet(value, SCHEMA_DIR)  # type: ignore[arg-type]
+
+    assert packet == {}
+    assert errors == ["research case bundle must be an object"]
