@@ -47,12 +47,18 @@
       "enum": ["manual", "download", "registry_api", "vendor_feed", "fixture"]
     },
     "retrieval_notes": { "type": "string", "minLength": 1 },
+    "reuse_posture": {
+      "type": "string",
+      "enum": ["link-only", "reproduction-authorized", "unknown"]
+    },
+    "reuse_posture_notes": { "type": "string", "minLength": 1 },
+    "reuse_license_locator": { "type": "string", "minLength": 1 },
     "collected_at": { "type": "string", "minLength": 1 },
     "observed_at": { "type": "string", "minLength": 1 },
     "freshness_as_of": { "type": "string", "minLength": 1 },
     "expected_update_frequency": {
       "type": "string",
-      "enum": ["annual", "quarterly", "event-driven", "irregular", "one-off", "unknown"]
+      "enum": ["daily", "annual", "quarterly", "event-driven", "irregular", "one-off", "unknown"]
     },
     "freshness_status": {
       "type": "string",

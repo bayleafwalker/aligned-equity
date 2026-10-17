@@ -42,6 +42,8 @@
 
 ## Research
 
+- **[Bounded Finland-first cases](cases/README.md)** - source-linked, offline examples that exercise the evidence-to-decision contracts
+
 - `soft-leadership-factors.md` - canonical research note on soft leadership and management quality
 - `research-notes.md` - stable pointer to the canonical research note
 

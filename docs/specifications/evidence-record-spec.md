@@ -13,7 +13,7 @@ The schema-backed contract lives in `schemas/evidence-record.schema.json`.
 | `company_id` | Stable company identity key, mapped separately from display names and tickers. |
 | `source_id` | Stable key for the source document, registry entry, announcement, or platform record. |
 | `source_family` | One of the source families from `docs/specifications/finland-source-inventory.md`. |
-| `evidence_class` | One of the schema-backed evidence classes. |
+| `evidence_class` | One of the schema-backed evidence classes, including `issuer_registry_record` for official company-register facts. |
 | `document_type` | Specific document or event type, such as annual report, remuneration policy, PDMR notice, or earnings transcript. |
 | `observed_at` | Date or timestamp of the underlying event or disclosure. |
 | `period_start` / `period_end` | Reporting period when the evidence is period-bound. |

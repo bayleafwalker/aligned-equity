@@ -14,7 +14,7 @@ Runtime validation is exposed by `aligned_equity.features.validate_feature_recor
 | `feature_id` | Stable repository-local identifier for the extracted feature observation. |
 | `company_id` | Stable company identity key inherited from the source evidence records. |
 | `feature_key` | Stable machine key for the deterministic feature, such as `board_independence_ratio` or `variable_pay_criteria_present`. |
-| `feature_family` | One of the schema-backed feature families for governance, remuneration, financial development, disclosure style, reporting change, capital-markets signal, or auxiliary people signal features. |
+| `feature_family` | One of the schema-backed feature families for governance, remuneration, financial development, issuer-registry, disclosure style, reporting change, capital-markets signal, or auxiliary people signal features. |
 | `feature_value_type` | Declared primitive value type: boolean, categorical, numeric, text, or date. |
 | `feature_value` | Extracted primitive value. It must be a deterministic observation, not a score, forecast, or lens assessment. |
 | `observed_at` | Date or timestamp represented by the underlying evidence. |
