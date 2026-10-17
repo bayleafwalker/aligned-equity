@@ -21,7 +21,7 @@ Runtime validation is exposed by `aligned_equity.source_ledger.validate_source_l
 | `collected_at` | Timestamp when Aligned Equity collected or accepted the source. |
 | `observed_at` | Date or timestamp represented by the source itself. |
 | `freshness_as_of` | Date or timestamp used to judge whether the source is current enough for downstream use. |
-| `expected_update_frequency` | Annual, quarterly, event-driven, irregular, one-off, or unknown. |
+| `expected_update_frequency` | Daily, annual, quarterly, event-driven, irregular, one-off, or unknown. |
 | `freshness_status` | Current, stale, unknown, or not-applicable. |
 | `language` | Source language and translation status. |
 | `source_confidence` | Authority and provenance confidence: high, medium, or low. |
@@ -38,6 +38,13 @@ Runtime validation is exposed by `aligned_equity.source_ledger.validate_source_l
 - `retrieval_notes`: collection caveats that matter before extraction.
 - `raw_hash`: hash of the captured source payload when a payload is stored.
 - `derived_evidence_ids`: evidence records produced from the source.
+- `reuse_posture` and `reuse_posture_notes`: whether this repository only links
+  to the source, has documented authority to reproduce it, or has not resolved
+  the posture. `link-only` is an internal handling choice, not a conclusion
+  about copyright or license terms. Do not store or publish source content
+  unless reproduction authority has been checked for the intended use.
+- `reuse_license_locator`: the license or terms URL used to establish a
+  reproduction posture, when applicable.
 
 ## Separation Rules
 

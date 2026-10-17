@@ -11,6 +11,7 @@ EVIDENCE_CLASSES = (
     "remuneration_report",
     "remuneration_policy",
     "esef_financials",
+    "issuer_registry_record",
     "pdmr_notice",
     "earnings_call",
     "leadership_change",
@@ -73,6 +74,7 @@ SOURCE_RETRIEVAL_METHODS = (
 )
 
 SOURCE_UPDATE_FREQUENCIES = (
+    "daily",
     "annual",
     "quarterly",
     "event-driven",
@@ -100,6 +102,7 @@ FEATURE_FAMILIES = (
     "financial_development",
     "disclosure_style",
     "reporting_change",
+    "issuer_registry",
     "capital_markets_signal",
     "people_signal_aux",
 )

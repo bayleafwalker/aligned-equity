@@ -1,0 +1,189 @@
+{
+  "case": {
+    "case_id": "nokia-prh-issuer-source-adequacy",
+    "status": "bounded-source-adequacy-non-decision-example",
+    "predeclared_at": "2026-10-17",
+    "predeclared_question": "Does the licensed PRH YTJ record alone provide enough company evidence to change an investment research state for Nokia?",
+    "scope": "One current company-register API response for Nokia Oyj / Nokia Corporation. The source is suitable for identity normalization and a registered-activity reference, not company performance analysis.",
+    "data_attribution": "Data: Finnish Patent and Registration Office (PRH), Open Data YTJ API v3, accessed 2026-10-17, CC BY 4.0. Source: https://avoindata.prh.fi/en/info/swagger-ui. License: https://creativecommons.org/licenses/by/4.0/.",
+    "decision_impact_status": "Not measured. No investor action, non-action or prior research-state change was supplied or observed.",
+    "observations": [
+      {
+        "evidence_id": "nokia-prh-entity-identity",
+        "source_section": "GET /companies response: businessId, names and companyForms",
+        "statement": "The response maps Finnish Business ID 0112038-9 to the registered name Nokia Oyj and English parallel name Nokia Corporation, and describes the entity as a public limited company."
+      },
+      {
+        "evidence_id": "nokia-prh-main-business-line",
+        "source_section": "GET /companies response: mainBusinessLine",
+        "statement": "The registered main business line is code 70100, “Activities of head offices,” with registration date 2026-01-01. This describes a registry classification, not the consolidated group’s complete activity or revenue mix."
+      }
+    ],
+    "gaps": [
+      "The registry record does not provide the issuer’s governance, remuneration, financial performance or market disclosures.",
+      "A registered “Activities of head offices” classification does not describe the complete consolidated group profile.",
+      "Additional sources must have suitable reuse terms established for the intended internal or external use before source content is copied.",
+      "No real user investment decision, follow-up, realized outcome or decision impact was observed."
+    ],
+    "decision_parameters": {
+      "analysis_date": "2026-10-17",
+      "decision_context": "investment",
+      "current_research_state": "watch",
+      "dimension": "evidence confidence",
+      "assessment": "insufficient_evidence",
+      "rationale": "The CC BY registry snapshot is sufficient to normalize the Finnish legal entity and its registered activity code, but it contains no governance, remuneration or financial performance evidence. It cannot support a company-quality or investment assessment.",
+      "likely_action_implication": "Record no investment research-state change from this source alone; keep the sample at watch until suitable governance and performance evidence is qualified.",
+      "value_of_information_assessment": "collect_more_evidence",
+      "value_of_information_note": "Additional Finland-first issuer sources with suitable reuse terms could answer the predeclared research question. Their coverage, lineage and rights posture must be reviewed before use.",
+      "causal_claim": {
+        "claim_type": "decision_relevance"
+      }
+    }
+  },
+  "company": {
+    "company_id": "fi-nokia-corporation",
+    "display_name": "Nokia Corporation",
+    "legal_name": "Nokia Oyj",
+    "domicile_country": "FI",
+    "identifier_confidence": "high",
+    "company_identifiers": {
+      "business_id": "0112038-9"
+    },
+    "source_aliases": [
+      {
+        "source_family": "prh_trade_register",
+        "source_value": "Nokia Oyj",
+        "source_id": "prh-ytj-nokia-0112038-9-2026-10-17"
+      },
+      {
+        "source_family": "prh_trade_register",
+        "source_value": "Nokia Corporation",
+        "source_id": "prh-ytj-nokia-0112038-9-2026-10-17"
+      }
+    ],
+    "normalization_notes": "PRH YTJ Open Data lists Nokia Oyj as the registered Finnish name and Nokia Corporation as an English parallel name for business ID 0112038-9. This registry identity mapping does not establish the activity or performance of the wider consolidated group."
+  },
+  "source_ledger_records": [
+    {
+      "source_id": "prh-ytj-nokia-0112038-9-2026-10-17",
+      "source_family": "prh_trade_register",
+      "source_name": "PRH Open Data YTJ API v3 company record for Nokia Oyj",
+      "source_locator": "https://avoindata.prh.fi/opendata-ytj-api/v3/companies?businessId=0112038-9",
+      "publisher": "Finnish Patent and Registration Office (PRH)",
+      "retrieval_method": "registry_api",
+      "retrieval_notes": "Manual, one-time query of the official YTJ API v3 on 2026-10-17 using businessId=0112038-9. The returned JSON is not bundled; its SHA-256 is retained for source identity.",
+      "reuse_posture": "reproduction-authorized",
+      "reuse_posture_notes": "PRH states that Open Data service data are reusable under CC BY 4.0, requires attribution, and prohibits use of PRH/YTJ logos or lookalike presentation. This view attributes PRH, includes no logos, and reproduces only selected registry fields. This is a source-specific posture, not a blanket license for linked documents.",
+      "reuse_license_locator": "https://creativecommons.org/licenses/by/4.0/",
+      "collected_at": "2026-10-17",
+      "observed_at": "2026-10-17",
+      "freshness_as_of": "2026-10-17",
+      "expected_update_frequency": "daily",
+      "freshness_status": "current",
+      "language": "English fields from Finnish YTJ open data API",
+      "source_confidence": "high",
+      "extraction_readiness": "ready",
+      "same_firm_comparable": "no",
+      "cross_firm_comparable": "partial",
+      "comparability_notes": "A current registry snapshot supports legal-entity identity and registered attributes. It is not a consolidated operating profile and does not establish financial performance, governance quality or investment merit.",
+      "bias_flags": [],
+      "raw_hash": "09b8f5ba551683ef73d26a855131eae0ea2fcebad7c09362b6c2ca1966082bad",
+      "derived_evidence_ids": [
+        "nokia-prh-entity-identity",
+        "nokia-prh-main-business-line"
+      ]
+    }
+  ],
+  "evidence_records": [
+    {
+      "evidence_id": "nokia-prh-entity-identity",
+      "company_id": "fi-nokia-corporation",
+      "source_id": "prh-ytj-nokia-0112038-9-2026-10-17",
+      "source_family": "prh_trade_register",
+      "evidence_class": "issuer_registry_record",
+      "document_type": "PRH YTJ Open Data API v3 company record",
+      "observed_at": "2026-10-17",
+      "collected_at": "2026-10-17",
+      "source_locator": "https://avoindata.prh.fi/opendata-ytj-api/v3/companies?businessId=0112038-9",
+      "language": "English",
+      "raw_hash": "09b8f5ba551683ef73d26a855131eae0ea2fcebad7c09362b6c2ca1966082bad",
+      "extraction_method": "registry API field selection",
+      "source_confidence": "high",
+      "extraction_confidence": "high",
+      "interpretation_confidence": "high",
+      "confidence_notes": "Business ID, current registered name, English parallel name and company-form description were selected directly from the API response. The record does not describe the whole operating group.",
+      "same_firm_comparable": "no",
+      "cross_firm_comparable": "partial",
+      "period_alignment": "point-in-time",
+      "accounting_scope": "not-applicable",
+      "restatement_status": "not-applicable",
+      "comparability_notes": "Official registry identity fields; not a performance measure or a substitute for issuer group disclosures.",
+      "bias_flags": [],
+      "legal_or_enforcement_override": false
+    },
+    {
+      "evidence_id": "nokia-prh-main-business-line",
+      "company_id": "fi-nokia-corporation",
+      "source_id": "prh-ytj-nokia-0112038-9-2026-10-17",
+      "source_family": "prh_trade_register",
+      "evidence_class": "issuer_registry_record",
+      "document_type": "PRH YTJ Open Data API v3 main business line record",
+      "observed_at": "2026-01-01",
+      "effective_date": "2026-01-01",
+      "collected_at": "2026-10-17",
+      "source_locator": "https://avoindata.prh.fi/opendata-ytj-api/v3/companies?businessId=0112038-9",
+      "language": "English description from multilingual registry response",
+      "raw_hash": "09b8f5ba551683ef73d26a855131eae0ea2fcebad7c09362b6c2ca1966082bad",
+      "extraction_method": "registry API field selection",
+      "source_confidence": "high",
+      "extraction_confidence": "high",
+      "interpretation_confidence": "high",
+      "confidence_notes": "Code 70100 and the English description “Activities of head offices” are taken from the registered mainBusinessLine field. This is a registry classification, not an exhaustive description of group operations.",
+      "same_firm_comparable": "no",
+      "cross_firm_comparable": "partial",
+      "period_alignment": "point-in-time",
+      "accounting_scope": "not-applicable",
+      "restatement_status": "not-applicable",
+      "comparability_notes": "A registered activity code may not reflect the activities of every subsidiary or the current group revenue mix; no group-profile inference is made.",
+      "bias_flags": [
+        "registry-classification-scope"
+      ],
+      "legal_or_enforcement_override": false
+    }
+  ],
+  "feature_records": [
+    {
+      "feature_id": "nokia-prh-main-business-line-code-2026-01-01",
+      "company_id": "fi-nokia-corporation",
+      "feature_key": "prh_registered_main_business_line_code",
+      "feature_family": "issuer_registry",
+      "feature_value_type": "categorical",
+      "feature_value": "70100",
+      "observed_at": "2026-01-01",
+      "effective_date": "2026-01-01",
+      "extracted_at": "2026-10-17",
+      "source_evidence_ids": [
+        "nokia-prh-main-business-line"
+      ],
+      "source_ids": [
+        "prh-ytj-nokia-0112038-9-2026-10-17"
+      ],
+      "extraction_rule_id": "prh-main-business-line-field",
+      "extraction_rule_version": "1",
+      "extraction_method": "exact_field",
+      "source_confidence": "high",
+      "extraction_confidence": "high",
+      "interpretation_confidence": "high",
+      "confidence_notes": "Exact registry field value; meaning is limited to the PRH registered main-business-line classification.",
+      "same_firm_comparable": "no",
+      "cross_firm_comparable": "partial",
+      "period_alignment": "point-in-time",
+      "accounting_scope": "not-applicable",
+      "restatement_status": "not-applicable",
+      "comparability_notes": "Do not treat this registered entity classification as a group-level sector or revenue profile.",
+      "bias_flags": [
+        "registry-classification-scope"
+      ]
+    }
+  ]
+}
